@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login and Sign Up - Page</title>
+		<script type="text/javascript">
+		function validateForm()
+		{
+			if (document.getElementById('username').value=="") //username check
+			{
+				alert("Username is required");
+				return false;
+			}
+			if (document.getElementById('fullname').value=="") //full name check
+			{
+				alert("Full name is required");
+				return false;
+			}
+			
+		    if (document.getElementById('telephone').value=="") //telephone number check
+		  	{  
+			    alert("the phone number is required");  
+			    return false;  
+		    }
+
+		    if (!(string(document.getElementById('email').value).includes("@"))) //email check
+			{
+				alert("email address is not valid.")
+				return false;
+			}
+			if (string(document.getElementById('password1').value) != string(document.getElementById('password2').value)) //password check
+			{
+				alert("the Passwords you entered do not match");
+				return false;
+			}
+		}
+		
+	</script>
+</head>
+<body>
+<h1>login and Register Page</h1>
+<h2>Login</h2>
+<br>
+<form method="post" > /*action="login.php" action="register.php" */
+	Username: <br>
+	<input type="text" id="loginusername" name="username" required>
+	<br>
+	Password: <br>
+	<input type="Password" id="loginpassword" name="password" >
+	<br>
+	<input type="submit" value="Log in">
+</form>
+<br>
+<h2>Sign up</h2>
+<form method="post"  onsubmit="return validateForm()">
+	Username: <br><input type="text" name="username" id="username"><br>
+	Full name: <br><input type="text" name="fullname" id="fullname"><br>
+	Telephone number: <br><input type="text" name="telephone" id="telephone"><br> in format XXX-XXX-XXXX <br>
+	Email Address: <br><input type="text" name="email" id="email"><br>
+	Password: <br><input type="text" name="password" id="password1"><br>
+	Rewrite password: <br><input type="text" name="password" id="password2"><br>
+	<input type="submit" value="Submit" name="submit_userinfo" id="submit">
+
+</form>
+
+</body>
+
+</html>
