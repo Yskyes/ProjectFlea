@@ -1,0 +1,69 @@
+/* External stylesheet for site */
+	body {
+    background-image: url("http://il6.picdn.net/shutterstock/videos/1816268/thumb/1.jpg");
+    background-color: white;
+    font-family: Verdana;
+    margin-left: 10%;
+    margin-right: 10%;
+	}
+	header{
+		background-color: #cfd1d3;
+		height: 45px;  
+		text-align: center;
+		vertical-align: text-top;
+	}
+	footer{
+		background-color: #d1d1d1;
+		position:absolute;
+		width: 80%;
+		bottom: 0px;
+		height: 25px;
+		text-align: center;
+	}
+	h3{
+		margin-top: 0;
+		font-size:200%;
+	}
+	a{
+		text-decoration: none;
+		color: black;
+	}
+	nav{
+		background-color: #cfd1d3;
+		text-align: center;
+		vertical-align: text-top;
+	}
+	ul {
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	}
+	toclist{
+		list-style-type: square;
+	}
+	li{
+    display: inline;
+    text-align: center;
+    padding: 0px 5px;
+    text-decoration: none;
+	}
+	li a {
+    text-decoration: none;
+	}
+	li:hover{
+	background-color: #e2e2e2;
+	}
+	footer ul li {
+	font-size: 0.8em;
+	padding: 4px;
+	}
+	.entrydiv{
+		background-color: #cfd1d3;
+		padding: 20px;
+		padding-top: 1px;
+	}
+	.entrydivheader{
+		font-size:120%;
+		padding:0px;
+	}
