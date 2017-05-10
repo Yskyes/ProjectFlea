@@ -104,35 +104,35 @@
 	</header>
 	<nav>
 		<ul>
-			<li>Add Entry</li>
-			<li><a href="/Flea/flea_searchpage.html"> Search </a></li>
-			<li><a href="/Flea/flea_userpage.html"> Userpage </a></li>
+	<div class=entrydiv><h4 class=entrydivheader>Registration:</h4>
+			<li><a href="http://localhost/projectflea/flea_entrypage.html">Add Entry</a></li>
+			<li><a href="http://localhost/projectflea/flea_searchpage.html"> Search </a></li>
+			<li><a href="http://localhost/projectflea/flea_userpage.html"> Userpage </a></li>
 		</ul>
 	</nav>
 	<br>
-	<div class=entrydiv><h4 class=entrydivheader>Registration:</h4>
 	<p id="error">  </p>
-		<form name="register" method="post" onsubmit="return validateRegister()"  autocomplete="on"  >
-		<!-- action="register.php" -->
+		<form name="register" action="register.php" method="POST" onsubmit="return validateRegister()"  autocomplete="on"  >
+		<!--  -->
 			<table>
 <!-- An answer on Stack Overflow by a W3School employee suggested using tables for this on particular purpose -->
 				<tr><td>Username: </td><td><input type="text" name="username" id="username"></tr>
 				<tr><td>Full name: </td><td><input type="text" name="fullname" id="fullname"></tr>
 				<tr><td>Telephone number: </td><td><input type="text" name="telephone" id="telephone"></tr>
 				<tr><td>Email Address: </td><td><input type="text" name="email" id="email"></tr>
-				<tr><td>Password: </td><td><input type="text" name="password1" id="password1"></tr>
-				<tr><td>Confirm password: </td><td><input type="text" name="password2" id="password2"></tr>
+				<tr><td>Password: </td><td><input type="password" name="password1" id="password1"></tr>
+				<tr><td>Confirm password: </td><td><input type="password" name="password2" id="password2"></tr>
 				<tr><td colspan="2"><input type="checkbox" name="agreement" value=1 required  >I have read and agree to the Terms and Conditions<br></td></tr>
 				<tr><td><input type="submit" value="Register" name="submit_userinfo"></tr>
 			</table>
 		</form>
 		<h4 class=entrydivheader>Already registered? Login:</h4>
 
-		<form name="login" method="post"   autocomplete="on" onsubmit="return ValidateLogin()" >
-		<!-- action="login.php" -->
+		<form name="login" method="POST" action="login.php"  autocomplete="on" onsubmit="return ValidateLogin()" >
+		<!--  -->
 			<table>
 				<tr><td>Username: </td><td><input type="text" name="loginusername" id="loginusername"></tr>
-				<tr><td>Password: </td><td><input type="text" name="loginpassword" id="loginpassword"></tr>
+				<tr><td>Password: </td><td><input type="password" name="loginpassword" id="loginpassword"></tr>
 				<tr><td><input type="submit" value="login" name="submit_login"></tr>
 			</table>
 		</form>
