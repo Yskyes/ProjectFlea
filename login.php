@@ -15,7 +15,7 @@
     }
 
     session_start();
-    
+
     // Get values passed from the html page
 	$username = $_POST['loginusername'];
 	$password = $_POST['loginpassword'];
@@ -29,7 +29,6 @@
 	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	if ($row['username']==$username && $row['password']==$password)
 	{
-		setcookie("username", $_POST["username"], time()++60*60*3);
 		echo "Welcome, ".$username;
 	}
 	else
