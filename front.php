@@ -1,3 +1,6 @@
+<?php 
+	session_start();	
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +24,16 @@
 			<li><a href="http://localhost/projectflea/flea_userpage.html"> Userpage </a></li>
 		</ul>
 	</nav>
+	<?php 
+		if(isset($_SESSION["username"]))
+		{
+			echo "Logged in as ".$_SESSION["username"];
+		}
+		else
+		{
+			echo "No user logged in";
+		}
+	?>
 	
 	<footer>
 		<ul>

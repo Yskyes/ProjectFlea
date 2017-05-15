@@ -29,12 +29,13 @@
 	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	if ($row['username']==$username && $row['password']==$password)
 	{
-		echo "Welcome, ".$username;
+		$_SESSION["username"] = $username;
+		$_SESSION["logged"] = true;
+		header("Location: ./front.php");
 	}
 	else
 	{
-		echo "Login failed. Please check your credentials.";
-		mysqli_close($connection);
-
+		$_SESSION["logged"] = false;
+     	header("Location: ./flea_loginpage.php");
 	}
 ?>	
