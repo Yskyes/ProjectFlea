@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,24 +14,22 @@
 </head>
 
 <body>
-	<header >
-		<!-- TO DO: replace the tables with UL and LI -->
-		<h3>Flea</h3>
-	</header>
-	<nav>
-		<ul>
-			<li> <a href="http://localhost/projectflea/flea_addentrypage.html"> Add Entry </a></li>
-			<li><a href="http://localhost/projectflea/flea_searchpage.html"> Search </a></li>
-			<li><a href="http://localhost/projectflea/flea_userpage.html"> Userpage </a></li>
-		</ul>
-	</nav>
+	<?php
+		include 'header.php';
+	?>
+	<?php
+		include 'nav.php';
+	?>
 	<br>
-	<div class=entrydiv><h4 class=entrydivheader>Search Entries:</h4>
-		<form action="/search.php" method="POST">
-			<table>
-				<tr><td>By Username:</td><td><input type="text" name="searchuser"></tr>
-				<tr><td>By Location:</td><td><input type="text" name="searchlocation"></tr>
-				<tr><td>By Category:</td><td><select name="searchcategory">
+	<!-- Everything the user needs for creating a new entry is here -->
+	<div class=entrydiv><h4 class=entrydivheader>Create an entry:</h4>
+		<form action="/uploadentry.php">
+			<!-- An answer on Stack Overflow by a W3School employee suggested using tables for this on particular purpose -->
+			<table> 
+				<tr><td>Title:</td><td><input type="text" name=title></td></tr>
+				<tr><td>Asking price:</td><td><input type="text" name=price></td></tr>
+				<tr><td>Location:</td><td><input type="text" name=location></td></tr>
+				<tr><td>Select category:</td><td><select name="category">
 					<option disabled>--- Entertainment</option>
 					<option value=6>Books</option>
 					<option value=7>Films</option>
@@ -72,18 +74,16 @@
 					<option value=42>Electronics & Accessories</option>
 					<option value=43>Spare/Replacement Parts</option>
 				</select></td></tr>
-				<tr><td>By Title:</td><td><input type="text" name="searchtitle"></tr>
-				<tr><td>By Description: </td><td><input type="text" name="searchdescription"></tr>
-				<tr><td><input type="submit" value="Submit" name="submit_search"></tr>
-			</table>
+		  		<tr><td>Select image: <td align="left"><input type="file" name="pic" accept="image/*"></td>
+		  		<tr><td>Description</td><td>(max 400 characters):</td></tr>
+				<tr colspan="2"><td><input type="text" maxlength=400 name=description style="width:265%"></td></tr>
+				<tr><td colspan="2"><input type="checkbox" name="agreement" value=1>I have read and agree to the Terms & Conditions<br></td></tr>
+				<tr><td><input type="submit" value="Submit Entry"></td>
+	  		</table>
 		</form>
 	</div>
-	<footer>
-		<ul>
-			<li>Contact Us</li>
-			<li><a href="http://www.reddit.com/r/partyparrot"> Terms & Conditions </a></li>
-			<li><a href="#"> Mobile Version </a></li>
-		</ul>
-	</footer>
+	<?php
+		include 'footer.php';
+	?>
 </body>
 </html>

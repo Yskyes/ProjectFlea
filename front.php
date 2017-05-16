@@ -13,17 +13,13 @@
 </head>
 
 <body>
-	<header >
-		<!-- TO DO: replace the tables with UL and LI -->
-		<h3>Flea</h3>
-	</header>
-	<nav>
-		<ul>
-			<li><a href="http://localhost/projectflea/flea_addentrypage.html">Add Entry </a></li>
-			<li><a href="http://localhost/projectflea/flea_searchpage.html"> Search </a></li>
-			<li><a href="http://localhost/projectflea/flea_userpage.html"> Userpage </a></li>
-		</ul>
-	</nav>
+	<?php
+		include 'header.php';
+	?>
+	<?php
+		include 'nav.php';
+	?>
+	
 	<?php 
 		if(isset($_SESSION["username"]))
 		{
@@ -35,12 +31,8 @@
 		}
 	?>
 	
-	<footer>
-		<ul>
-			<li>Contact Us</li>
-			<li><a href="http://www.reddit.com/r/partyparrot"> Terms & Conditions </a></li>
-			<li><a href="#"> Mobile Version </a></li>
-		</ul>
-	</footer>
+	<?php
+		include 'footer.php';
+	?>
 </body>
 </html>

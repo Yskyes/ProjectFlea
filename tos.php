@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +14,12 @@
 </head>
 
 <body>
-	<header >
-		<!-- TO DO: replace the tables with UL and LI -->
-		<h3>Flea</h3>
-	</header>
-	<nav>
-		<ul>
-			<li>Add Entry</li>
-			<li><a href="/Flea/flea_searchpage.html"> Search </a></li>
-			<li><a href="/Flea/flea_userpage.html"> Userpage </a></li>
-		</ul>
-	</nav>
+	<?php
+		include 'header.php';
+	?>
+	<?php
+		include 'nav.php';
+	?>
 	<br>
 		<div class=entrydiv><br>
 		<h4 class=entrydivheader>Terms and Conditions</h4>
@@ -38,12 +37,8 @@
 			terms of use from the providers thereof. Payment disorders, in addition to sanctions that payment service
 			providers may apply, suspension or termination of one's user account here may also be applied.</p>
 		</div>
-	<footer>
-		<ul>
-			<li>Contact Us</li>
-			<li><a href="http://www.reddit.com/r/partyparrot"> Terms & Conditions </a></li>
-			<li><a href="#"> Mobile Version </a></li>
-		</ul>
-	</footer>
+	<?php
+		include 'footer.php';
+	?>
 </body>
 </html>

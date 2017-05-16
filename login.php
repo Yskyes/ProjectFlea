@@ -1,41 +1,148 @@
-<?php
+<?php 
+	session_start();	
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="online second-hand shopping platform!">
+	<meta name="keywords" content="shopping, online, second-hand, fleamarket, HTML5, CSS">
+	<meta name="authors" content="Robin Jacobs, Mikko Jaakonsaari">
+	<link rel = "stylesheet" type = "text/css" href = "stylesheet.css">
+	<title>Flea</title>
+	<script type="text/javascript">
+			function validateRegister()
+			{
 
+				var nameformat = RegExp (/^[a-zA-Z0-9*_]{5,14}$/);
+				var username = document.getElementById("username").value;
+				if (!(nameformat.test(username))) //username check
+				{
+					document.getElementById("username").style.borderColor = "red";
+					alert("Username must be 5 to 14 characters long or has illegal characters.");
+					return false;
+				}
+
+				if (document.getElementById('fullname').value=="") //full name check
+				{
+					document.getElementById("fullname").style.borderColor = "red";
+					alert("Full name is required");
+					return false;
+				}
+
+				// checks that the phone number is in the correct format, eg. european or with country code
+				var phoneno =RegExp(/^[0-9+]{9,13}$/);
+				var number = document.getElementById("telephone").value;  
+			  	if(!(phoneno.test(number)))  
+			    {  
+			    	document.getElementById("telephone").style.borderColor = "red";
+			      	alert("phonenumber did not meet the given form");  
+			  		return false;  
+			    }  
+			  	
+				//check that the email contains a proper domain name 
+				var mailformat = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/);
+				var address = document.getElementById("email").value;
+				if(!(mailformat.test(address)))
+				{   
+					document.getElementById("email").style.borderColor = "red";
+					alert("You have entered an invalid email address.");  
+					return false; 
+				}  
+				
+				//check that password is long enough and that the two passwords match
+				var passw= RegExp(/^[a-zA-Z0-9!@#$%^&*_]{7,14}$/);
+				var inputtxt1 = document.getElementById("password1").value;
+				var inputtxt2 = document.getElementById("password2").value;
+				
+				if(passw.test(inputtxt1))   
+				{   
+					if (!(inputtxt1 == inputtxt2))
+					{
+						document.getElementById("password1").style.borderColor = "red";
+						document.getElementById("password2").style.borderColor = "red";
+						alert("The two passwords you entered do not match.");
+						return false;
+					} 
+				}  
+				else  
+				{ 
+				document.getElementById("password1").style.borderColor = "red";
+				document.getElementById("password2").style.borderColor = "red";  
+				alert("Password must be 7-14 characters long, and accepts special marks !@#$%^&_.");
+				return false;  
+				}
+				
+			}
+			function ValidateLogin()
+			{
+				var nameformat = RegExp (/^[a-zA-Z0-9*_]{5,14}$/);
+				var username = document.getElementById("loginusername").value;
+				
+				if (!(nameformat.test(username))) //username check
+				{
+					alert("Username must be 5 to 14 characters long or has illegal characters.");
+					return false;
+				}
+
+				var passw= RegExp(/^[a-zA-Z0-9!@#$%^&*_]{7,14}$/);
+				var inputtxt1 = document.getElementById("loginpassword").value;
+
+				if(!(passw.test(inputtxt1))) 
+				{   
+					alert("Password must be 7-14 characters long, and accepts special marks !@#$%^&_.");
+					return false;
+				}  
 	
+			}
 
-	// Create connection to XAMPP and its DB
-	$connection = mysqli_connect('localhost', 'root', '');
-	if(!$connection)
-	{
-		die("Database connection failed".mysqli_error($connection));
-	}
-	$select_db = mysqli_select_db($connection, 'fleadbv2');
-	if (!$select_db)
-	{
-    	die("Database Selection Failed" . mysqli_error($connection));
-    }
+  
+	</script>
+</head>
 
-    session_start();
+<body>
+	<?php
+		include 'header.php';
+	?>
+	<?php
+		include 'nav.php';
+	?>
+	<br>
+	<p id="error">  </p>
+	<h4 class=entrydivheader>Register:</h4>
+		<form name="register" action="register.php" method="POST" onsubmit="return validateRegister()"  autocomplete="on"  >
+		<!--  -->
+			<table>
+<!-- An answer on Stack Overflow by a W3School employee suggested using tables for this on particular purpose -->
+				<tr><td>Username: </td><td><input type="text" name="username" id="username"></tr>
+				<tr><td>Full name: </td><td><input type="text" name="fullname" id="fullname"></tr>
+				<tr><td>Telephone number: </td><td><input type="text" name="telephone" id="telephone"></tr>
+				<tr><td>Email Address: </td><td><input type="text" name="email" id="email"></tr>
+				<tr><td>Password: </td><td><input type="password" name="password1" id="password1"></tr>
+				<tr><td>Confirm password: </td><td><input type="password" name="password2" id="password2"></tr>
+				<tr><td colspan="2"><input type="checkbox" name="agreement" value=1 required  >I have read and agree to the Terms and Conditions<br></td></tr>
+				<tr><td><input type="submit" value="Register" name="submit_userinfo"></tr>
+			</table>
+		</form>
+		<h4 class=entrydivheader>Already registered? Login:</h4>
 
-    // Get values passed from the html page
-	$username = $_POST['loginusername'];
-	$password = $_POST['loginpassword'];
-	$login = "SELECT * FROM sellers WHERE username='$username' AND password='$password'";
-
-	
-
-	// Query the database 
-	$result = mysqli_query($connection, $login);
-	// Places results in an array
-	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-	if ($row['username']==$username && $row['password']==$password)
-	{
-		$_SESSION["username"] = $username;
-		$_SESSION["logged"] = true;
-		header("Location: ./front.php");
-	}
-	else
-	{
-		$_SESSION["logged"] = false;
-     	header("Location: ./flea_loginpage.php");
-	}
-?>	
+		<form name="login" method="POST" action="login.php"  autocomplete="on" onsubmit="return ValidateLogin()" >
+		<!--  -->
+			<table>
+				<tr><td>Username: </td><td><input type="text" name="loginusername" id="loginusername"></tr>
+				<tr><td>Password: </td><td><input type="password" name="loginpassword" id="loginpassword"></tr>
+				<?php
+					if ($_Session['logged'] = false)
+					{
+						echo "Login failed, check your credentials";
+					}
+				?>
+				<tr><td><input type="submit" value="login" name="submit_login"></tr>
+			</table>
+		</form>
+	</div>
+	<?php
+		include 'footer.php';
+	?>
+</body>
+</html>
