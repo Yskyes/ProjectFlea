@@ -20,12 +20,7 @@
 		include 'nav.php';
 	?>
 	
-	<?php 
-		if(isset($_SESSION["username"]))
-		{
-			echo "Logged in as ".$_SESSION["username"];
-		}
-	?>
+	
 	
 	<?php
 		include 'footer.php';

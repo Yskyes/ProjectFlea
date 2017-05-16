@@ -1,20 +1,20 @@
+<?php
+	$loginregister = "http://localhost/projectflea/login.php";
+	$userpage = "http://localhost/projectflea/user.php";
+?>
 <nav>
 	    <ul>
 	    	<li><a href="http://localhost/projectflea/addentry.php"> Add Entry </a></li>
 	    	<li><a href="http://localhost/projectflea/search.php"> Search </a></li>
-    		<li><a href="http://localhost/projectflea/user.php"> Userpage </a></li>
-    		<li><a href="http://localhost/projectflea/login.php">Login/Register</a></li>
     		<?php 
-				if(isset($_SESSION["username"]))
+				if(isset($_SESSION["username"]) && $_SESSION["logged"] == True)
 				{
-					echo "<li>Logged in as ".$_SESSION["username"]."</li>";
+					echo "<a href='".$userpage."'><b>".$_SESSION["username"]."</b></a>";
+				}
+				else
+				{
+					echo "<a href='".$loginregister."'>Login/Register</a>";
 				}
 			?>
     	</ul>
-    	<?php 
-				if(isset($_SESSION["username"]))
-				{
-					echo "<li>Logged in as ".$_SESSION["username"]."</li>";
-				}
-			?>
 </nav>
