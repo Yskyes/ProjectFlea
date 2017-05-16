@@ -1,5 +1,5 @@
 <?php 
-	session_start();	
+	require_once 'connection.php';	
 ?>
 <!DOCTYPE html>
 <html>
@@ -126,13 +126,13 @@
 		</form>
 		<h4 class=entrydivheader>Already registered? Login:</h4>
 
-		<form name="login" method="POST" action="login.php"  autocomplete="on" onsubmit="return ValidateLogin()" >
+		<form name="login" method="POST" action="loginscript.php"  autocomplete="on" onsubmit="return ValidateLogin()" >
 		<!--  -->
 			<table>
 				<tr><td>Username: </td><td><input type="text" name="loginusername" id="loginusername"></tr>
 				<tr><td>Password: </td><td><input type="password" name="loginpassword" id="loginpassword"></tr>
 				<?php
-					if ($_Session['logged'] = false)
+					if ($_Session['logged'] = False)
 					{
 						echo "Login failed, check your credentials";
 					}

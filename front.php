@@ -1,5 +1,5 @@
 <?php 
-	session_start();	
+	require_once 'connection.php';	
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,10 +24,6 @@
 		if(isset($_SESSION["username"]))
 		{
 			echo "Logged in as ".$_SESSION["username"];
-		}
-		else
-		{
-			echo "No user logged in";
 		}
 	?>
 	

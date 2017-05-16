@@ -1,18 +1,6 @@
 <?php
 
-	//fuck knows if any of the bits i wrote work, i code like a chimpanzee uses a typewriter
-
-	// Create connection to XAMPP and its DB
-	$connection = mysqli_connect('localhost', 'root', '');
-	if(!$connection)
-	{
-		die("Database connection failed".mysqli_error($connection));
-	}
-	$select_db = mysqli_select_db($connection, 'fleadb');
-	if (!$select_db)
-	{
-    	die("Database Selection Failed" . mysqli_error($connection));
-    	}
+	
     	// Get values passed from the html page
 	$searchtitle = $_POST['searchtitle'];
 	$searchuser = $_POST['searchuser'];
