@@ -1,6 +1,7 @@
 <?php
 	$loginregister = "http://localhost/projectflea/login.php";
 	$userpage = "http://localhost/projectflea/user.php";
+	$logout = "http://localhost/projectflea/logout.php";
 ?>
 <nav>
 	    <ul>
@@ -9,7 +10,8 @@
     		<?php 
 				if(isset($_SESSION["username"]) && $_SESSION["logged"] == True)
 				{
-					echo "<a href='".$userpage."'><b>".$_SESSION["username"]."</b></a>";
+					echo "<li><a href='".$userpage."'><b>".$_SESSION["username"]."</b></a></li>
+					<li><a href='".$logout."'> Log out </a></li>";
 				}
 				else
 				{

@@ -19,9 +19,10 @@
 	<?php
 		include 'nav.php';
 	?>
-	
-	
-	
+	<br>
+	<div class="entrydiv">
+		<p>This page could consist of a listing of newest ads for example</p>
+	</div>
 	<?php
 		include 'footer.php';
 	?>
