@@ -14,7 +14,7 @@
 			function validateRegister()
 			{
 
-				var nameformat = RegExp (/^[a-zA-Z0-9*_]{5,14}$/);
+				var nameformat = RegExp (/^[a-zA-Z0-9*_-']{5,14}$/);
 				var username = document.getElementById("username").value;
 				if (!(nameformat.test(username))) //username check
 				{
