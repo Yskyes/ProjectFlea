@@ -14,12 +14,21 @@
 			function validateRegister()
 			{
 
-				var nameformat = RegExp (/^[a-zA-Z0-9*_-']{5,14}$/);
+				var nameformat = RegExp (/^[a-zA-ZÄäÖöÅå0-9_]{5,14}$/);
 				var username = document.getElementById("username").value;
 				if (!(nameformat.test(username))) //username check
 				{
 					document.getElementById("username").style.borderColor = "red";
 					alert("Username must be 5 to 14 characters long or has illegal characters.");
+					return false;
+				}
+
+				var fullnameformat = RegExp (/^[a-zA-ZÄäÖöÅå'-]{5,}$/);
+				var fullname = document.getElementById("fullname").value;
+				if (!(fullnameformat.test(fullname))) //username check
+				{
+					document.getElementById("fullname").style.borderColor = "red";
+					alert("Full name is shorter than 5 digits, is missing, or has illegal characters.");
 					return false;
 				}
 
@@ -51,7 +60,7 @@
 				}  
 				
 				//check that password is long enough and that the two passwords match
-				var passw= RegExp(/^[a-zA-Z0-9!@#$%^&*_]{7,14}$/);
+				var passw= RegExp(/^[a-zA-Z0-9_]{7,14}$/);
 				var inputtxt1 = document.getElementById("password1").value;
 				var inputtxt2 = document.getElementById("password2").value;
 				
@@ -69,14 +78,14 @@
 				{ 
 				document.getElementById("password1").style.borderColor = "red";
 				document.getElementById("password2").style.borderColor = "red";  
-				alert("Password must be 7-14 characters long, and accepts special marks !@#$%^&_.");
+				alert("Password must be 7-14 characters long and only include letters, numbers or underscores.");
 				return false;  
 				}
 				
 			}
 			function ValidateLogin()
 			{
-				var nameformat = RegExp (/^[a-zA-Z0-9*_]{5,14}$/);
+				var nameformat = RegExp (/^[a-zA-Z0-9_]{5,14}$/);
 				var username = document.getElementById("loginusername").value;
 				
 				if (!(nameformat.test(username))) //username check
@@ -85,12 +94,12 @@
 					return false;
 				}
 
-				var passw= RegExp(/^[a-zA-Z0-9!@#$%^&*_]{7,14}$/);
+				var passw= RegExp(/^[a-zA-Z0-9_]{7,14}$/);
 				var inputtxt1 = document.getElementById("loginpassword").value;
 
 				if(!(passw.test(inputtxt1))) 
 				{   
-					alert("Password must be 7-14 characters long, and accepts special marks !@#$%^&_.");
+					alert("Password must be 7 to 14 characters long or has illegal characters.");
 					return false;
 				}  
 	
@@ -132,9 +141,14 @@
 				<tr><td>Username: </td><td><input type="text" name="loginusername" id="loginusername"></tr>
 				<tr><td>Password: </td><td><input type="password" name="loginpassword" id="loginpassword"></tr>
 				<?php
-					if ($_Session['logged'] = False)
+					if (isset($_SESSION["logged"]) && $_SESSION["logged"] == False)
 					{
-						echo "Login failed, check your credentials";
+						echo ("<tr><td> Login failed, check your credentials</tr></td>");
+						unset($_SESSION["logged"]);
+					}
+					if(isset($_SESSION["error"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["error"]. " /tr></td>");
 					}
 				?>
 				<tr><td><input type="submit" value="login" name="submit_login"></tr>
