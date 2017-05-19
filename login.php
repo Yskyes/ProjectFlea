@@ -23,7 +23,7 @@
 					return false;
 				}
 
-				var fullnameformat = RegExp (/^[a-zA-ZÄäÖöÅå'-]{5,}$/);
+				var fullnameformat = RegExp (/^[a-zA-ZÄäÖöÅå'-\s]{5,40}$/);
 				var fullname = document.getElementById("fullname").value;
 				if (!(fullnameformat.test(fullname))) //username check
 				{
@@ -40,7 +40,7 @@
 				}
 
 				// checks that the phone number is in the correct format, eg. european or with country code
-				var phoneno =RegExp(/^[0-9+]{9,13}$/);
+				var phoneno =RegExp(/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/);
 				var number = document.getElementById("telephone").value;  
 			  	if(!(phoneno.test(number)))  
 			    {  
@@ -119,19 +119,66 @@
 	<br>
 	<p id="error">  </p>
 	<h4 class=entrydivheader>Register:</h4>
-		<form name="register" action="register.php" method="POST" onsubmit="return validateRegister()"  autocomplete="on"  >
+		<form name="register" action="registerscript.php" method="POST" onsubmit="return validateRegister()"  autocomplete="on"  >
 		<!--  -->
 			<table>
 <!-- An answer on Stack Overflow by a W3School employee suggested using tables for this on particular purpose -->
 				<tr><td>Username: </td><td><input type="text" name="username" id="username"></tr>
+				<?php
+					if (isset($_SESSION["registeruser"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["registeruser"]. " </tr></td>");
+						unset($_SESSION["registeruser"]);
+					}
+					
+				?>
 				<tr><td>Full name: </td><td><input type="text" name="fullname" id="fullname"></tr>
+				<?php
+					if (isset($_SESSION["registerfull"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["registerfull"]. " </tr></td>");
+						unset($_SESSION["registerfull"]);
+					}
+					
+				?>
 				<tr><td>Telephone number: </td><td><input type="text" name="telephone" id="telephone"></tr>
+				<?php
+					if (isset($_SESSION["registerphone"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["registerphone"]. " </tr></td>");
+						unset($_SESSION["registerphone"]);
+					}
+					
+				?>
 				<tr><td>Email Address: </td><td><input type="text" name="email" id="email"></tr>
+				<?php
+					if (isset($_SESSION["registeremail"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["registeremail"]. " </tr></td>");
+						unset($_SESSION["registeremail"]);
+					}
+					
+				?>
 				<tr><td>Password: </td><td><input type="password" name="password1" id="password1"></tr>
 				<tr><td>Confirm password: </td><td><input type="password" name="password2" id="password2"></tr>
+				<?php
+					if (isset($_SESSION["registerpassword"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["registerpassword"]. " </tr></td>");
+						unset($_SESSION["registerpassword"]);
+					}
+					
+				?>
 				<tr><td colspan="2"><input type="checkbox" name="agreement" value=1 required  >I have read and agree to the Terms and Conditions<br></td></tr>
 				<tr><td><input type="submit" value="Register" name="submit_userinfo"></tr>
 			</table>
+			<?php
+					if (isset($_SESSION["registermsg"]))
+					{
+						echo ("<p>". $_SESSION["registermsg"]."</p>");
+						unset($_SESSION["registermsg"]);
+					}
+			?>
 		</form>
 		<h4 class=entrydivheader>Already registered? Login:</h4>
 
@@ -146,9 +193,9 @@
 						echo ("<tr><td> Login failed, check your credentials</tr></td>");
 						unset($_SESSION["logged"]);
 					}
-					if(isset($_SESSION["error"]))
+					if(isset($_SESSION["loginerror"]))
 					{
-						echo ("<tr><td>" .  $_SESSION["error"]. " /tr></td>");
+						echo ("<tr><td>" .  $_SESSION["loginerror"]. " /tr></td>");
 					}
 				?>
 				<tr><td><input type="submit" value="login" name="submit_login"></tr>

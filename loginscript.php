@@ -14,20 +14,23 @@
 
 	if (preg_match($illegal, $username)) 
 	{
-		$_SESSION["error"] = "Username contained illegal characters. Please refrain to letters, underscores, and numbers only";
+		$_SESSION["loginerror"] = "Username contained illegal characters. Please refrain to letters, underscores, and numbers only";
     	header("Location: ./login.php" );
+    	Exit();
 	}
 
 	if (preg_match($userformat, $username)) 
 	{
-		$_SESSION["error"] = "Username must be 5-14 characters long and contain only letters, numbers, or underscores";
+		$_SESSION["loginerror"] = "Username must be 5-14 characters long and contain only letters, numbers, or underscores";
     	header("Location: ./login.php" );
+    	Exit();
 	} 
 
 	if (preg_match($illegal, $password)) 
 	{
-		$_SESSION["error"] = "Password contained illegal characters. Please refrain to letters, underscores, and numbers only";
+		$_SESSION["loginerror"] = "Password contained illegal characters. Please refrain to letters, underscores, and numbers only";
     	header("Location: ./login.php" );
+    	Exit();
 	} 
 
 	
@@ -51,5 +54,6 @@
 	{
 		$_SESSION["logged"] = False;
      	header("Location: ./login.php");
+     	Exit();
 	}
 ?>	
