@@ -21,7 +21,7 @@
 	?>
 	<br>
 	<div class=entrydiv><h4 class=entrydivheader>Search Entries:</h4>
-		<form action="/search.php" method="POST">
+		<form action="testfiles/search.php" method="POST">
 			<table>
 				<tr><td>By Username:</td><td><input type="text" name="searchuser"></tr>
 				<tr><td>By Location:</td><td><input type="text" name="searchlocation"></tr>
