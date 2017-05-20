@@ -1,6 +1,6 @@
 <?php
 	$loginregister = "http://localhost/projectflea/login.php";
-	$userpage = "http://localhost/projectflea/user.php";
+	$userpage = "http://localhost/projectflea/userpage.php";
 	$logout = "http://localhost/projectflea/logout.php";
 ?>
 <nav>
