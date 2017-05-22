@@ -23,9 +23,51 @@
 	<br>
 	<div class="entrydiv">
 	<h4 class="entrydivheader">User Details:</h4>
-	    <ul>
-	    	<li><b>Own Entries</b></li><br><!-- This should execute a search upon loading and list links to all user's own entries --><br>
-	    	<li><b>Own Details</b></li>
+	    
+	    	<li><b>Own Entries</b></li><br>
+			<!-- This should execute a search upon loading and list links to all user's own entries -->
+				<?php
+	    			// Check that the user is logged in, otherwise redirect
+					if(!(isset($_SESSION["username"])))
+					{
+						header("Location: ./login.php" );
+						Exit();
+					}
+					// Fetch user info
+					$user = $_SESSION["username"];
+					$userentries = "SELECT id, title, leftdate FROM advertisements 
+					JOIN sellers ON advertisements.username = sellers.username WHERE sellers.username = '$user'";
+
+					// Query the database 
+					$result = mysqli_query($connection, $userentries);
+
+					if(mysqli_num_rows($result) == 0)
+					{
+						echo "<br> You do not have any advertisements.<br>";
+					}
+					
+					else
+					{
+						//print it all out
+						$table="<table><tr>
+								    <th>Id</th>
+								    <th>Title</th>
+								    <th>Left Date</th>
+							  </tr>";
+						while ($row = $result->fetch_assoc()) 
+						{
+							$table.= "<tr> <td>".$row['id']."</td> <td>".$row['title']."</td> <td>".$row['leftdate']."</td> </tr>";
+							
+						}
+						$table.="</table>";
+						echo $table;
+					}
+
+				?>
+
+
+			<br>
+	    	<b>Own Details</b>
 	    		<?php
 	    			// Check that the user is logged in, otherwise redirect
 					if(!(isset($_SESSION["username"])))
@@ -43,19 +85,17 @@
 					//print it all out
 					while ($row = $result->fetch_assoc()) 
 					{
-						echo '<ul class="sublist">';
-							echo '<br><li>'.$row['username'].'</li><br>';
-							echo '<li>'.$row['fullname'].'</li><br>';
-							echo '<li>'.$row['email'].'</li><br>';
-							echo '<li>'.$row['telephone'].'</li><br>';
-						echo '</ul>';
 						
+							echo '<br>'.$row['username'].'<br>';
+							echo $row['fullname'].'<br>';
+							echo $row['email'].'<br>';
+							echo $row['telephone'].'<br>';
 					}
 
 				?>
 
 	    		<!-- Search results for details of the current user, executed upon page loading and authenticated by session i.e. user can see only their own details --><br>
-    	</ul><br>
+    		<br>
     	<b>Change your details:</b>
     	<table>
     		<tr><td>New Password:</td><td><input type="password" name="changepassword1" id="changepassword1"></tr>
