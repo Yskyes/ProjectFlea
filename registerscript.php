@@ -72,6 +72,10 @@
 		$_SESSION["registerpassword"] = "The two passwords you entered do not match.";
 	}
 
+	// If the full name includes allowed special characters, convert them to HTML entities
+
+	$fullname = htmlspecialchars($fullname);
+
 	// Query the DB in case the suggested values exist already
 	$checkuser = "SELECT username FROM sellers WHERE username='$username'";
 	$checkemail = "SELECT email FROM sellers WHERE email='$email'";
