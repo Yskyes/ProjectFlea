@@ -26,6 +26,7 @@
 				<tr><td>By Username:</td><td><input type="text" name="searchuser"></tr>
 				<tr><td>By Location:</td><td><input type="text" name="searchlocation"></tr>
 				<tr><td>By Category:</td><td><select name="searchcategory">
+					<option></option>
 					<option disabled>--- Entertainment</option>
 					<option value=6>Books</option>
 					<option value=7>Films</option>
