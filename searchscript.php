@@ -25,22 +25,22 @@
 	require_once 'connection.php';
 	
 	//get values passed from the html page
-	$searchtitle = $_GET['searchtitle'];
+	$searchtitledescr = $_GET['searchtitledescr'];
 	$searchuser = $_GET['searchuser'];
 //	$searchcategory = $_GET['searchcategory'];
 //	$searchlocation = $_GET['searchlocation'];
-	$searchdescription = $_GET['searchdescription'];
+//	$searchdescription = $_GET['searchdescription'];
 
 	//creates a prepared statement and binds variables as parameters
 //	$stmt = $connection->prepare("SELECT * FROM advertisements WHERE title LIKE ? AND username LIKE ? AND categoryid = ? AND locationid = ? AND description LIKE ?");
 //	$stmt->bind_param("ssiis", $searchtitle, $searchuser, $searchlocation, $searchcategory, $searchdescription);
 	$stmt = $connection->prepare("SELECT * FROM advertisements WHERE title LIKE ? AND username LIKE ? AND description LIKE ?");
-	$stmt->bind_param("sss", $searchtitle, $searchuser, $searchdescription);
+	$stmt->bind_param("sss", $searchtitledescr, $searchuser, $searchtitledescr);
 	
 	//allow for partial matches. TODO: allow user to specify whether they want partial or full matches
-	$searchtitle = '%' . $searchtitle . '%';
+	$searchtitledescr = '%' . $searchtitledescr . '%';
 	$searchuser = '%' . $searchuser . '%';
-	$searchdescription = '%' . $searchdescription . '%';
+//	$searchdescription = '%' . $searchdescription . '%';
 
 	//execute query
 	$result = $stmt->execute();

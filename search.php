@@ -70,8 +70,8 @@
 					<option value=42>Electronics & Accessories</option>
 					<option value=43>Spare/Replacement Parts</option>
 				</select></td></tr>
-				<tr><td>By Title:</td><td><input type="text" name="searchtitle"></tr>
-				<tr><td>By Description: </td><td><input type="text" name="searchdescription"></tr>
+				<tr><td>By Title or Description:</td><td><input type="text" name="searchtitledescr"></tr>
+				<!-- <tr><td>By Description: </td><td><input type="text" name="searchdescription"></tr> -->
 				<tr><td><input type="submit" value="Submit" name="submit_search"></tr>
 			</table>
 		</form>
