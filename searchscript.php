@@ -25,11 +25,11 @@
 	require_once 'connection.php';
 	
 	//get values passed from the html page
-	$searchtitle = $_POST['searchtitle'];
-	$searchuser = $_POST['searchuser'];
-//	$searchcategory = $_POST['searchcategory'];
-//	$searchlocation = $_POST['searchlocation'];
-	$searchdescription = $_POST['searchdescription'];
+	$searchtitle = $_GET['searchtitle'];
+	$searchuser = $_GET['searchuser'];
+//	$searchcategory = $_GET['searchcategory'];
+//	$searchlocation = $_GET['searchlocation'];
+	$searchdescription = $_GET['searchdescription'];
 
 	//creates a prepared statement and binds variables as parameters
 //	$stmt = $connection->prepare("SELECT * FROM advertisements WHERE title LIKE ? AND username LIKE ? AND categoryid = ? AND locationid = ? AND description LIKE ?");
