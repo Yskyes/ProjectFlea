@@ -109,7 +109,7 @@
 	{
 		if(!(mysqli_num_rows($result) == 0))
 		{
-			$_SESSION["registerphone"] = "The email ".$email." is already in use.";
+			$_SESSION["registerphone"] = "The phone number ".$telephone." is already in use.";
 			header("Location: ./login.php" );
     		Exit();
 		}

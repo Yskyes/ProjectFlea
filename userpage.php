@@ -43,7 +43,7 @@
 
 					if(mysqli_num_rows($result) == 0)
 					{
-						echo "<br> You do not have any advertisements.<br>";
+						echo "<br> You do not have any entries.<br>";
 					}
 					
 					else
@@ -97,14 +97,56 @@
 	    		<!-- Search results for details of the current user, executed upon page loading and authenticated by session i.e. user can see only their own details --><br>
     		<br>
     	<b>Change your details:</b>
+    	<form name="update" action="updatescript.php" method="POST"  autocomplete="on">
     	<table>
     		<tr><td>New Password:</td><td><input type="password" name="changepassword1" id="changepassword1"></tr>
     		<tr><td>Confirm New Password:</td><td><input type="password" name="changepassword2" id="changepassword2"></tr><!-- checks that it's the same as what's entered in the first one, returns error if not -->
+    		<?php
+					if (isset($_SESSION["updatepassword"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["updatepassword"]. " </tr></td>");
+						unset($_SESSION["updatepassword"]);
+					}
+					
+			?>
     		<tr><td>Change Email:</td><td><input type="email" name="changeemail" id="changeemail"></tr>
-    		<tr><td>Select avatar: <td align="left"><input type="file" name="avatar" accept="image/*"></td><!-- Probably not going to be used -->
+    		<?php
+					if (isset($_SESSION["updateemail"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["updateemail"]. " </tr></td>");
+						unset($_SESSION["updateemail"]);
+					}
+					
+				?>
 			<tr><td>Telephone number: </td><td><input type="text" name="telephone" id="telephone"></tr>
+			<?php
+					if (isset($_SESSION["updatephone"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["updatephone"]. " </tr></td>");
+						unset($_SESSION["updatephone"]);
+					}
+					
+			?>
     		<tr><td>Current Password:</td><td><input type="password" name="currentpassword" id="currentpassword"></tr><!-- Only accept changes if password is correct, standard security measure -->
+    		<?php
+					if (isset($_SESSION["oldpassword"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["repeatpassword"]. " </tr></td>");
+						unset($_SESSION["repeatpassword"]);
+					}
+					
+			?>
+    		<tr><td><input type="submit" name="submit"></td></tr>
+    		<?php
+					if (isset($_SESSION["updatestatus"]))
+					{
+						echo ("<tr><td>" .  $_SESSION["updatestatus"]. " </tr></td>");
+						unset($_SESSION["updatestatus"]);
+					}
+					
+			?>
     	</table>
+    	</form>
 	</div>
 	<?php
 		include 'footer.php';
