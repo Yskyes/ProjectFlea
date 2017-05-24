@@ -78,13 +78,14 @@
 				$stmt = $connection->prepare($fullstatement);
 				
 				//Calls the array returned from bindParam function
-				//In the form of 1st element = a string corresponding to paramter types, aferwards each element a reference to a parameter.
+				//In the form of 1st element = a string corresponding to parameter types, aferwards each element a reference to a parameter.
 				//bind_param MUST be given references for the second element onwards. Dunno why.
 				call_user_func_array(array($stmt, 'bind_param'), $bindParam->get()); 
 		
 				//Debug printing, the final SQL query, and all parameters in the array given to bind_param
 				echo $fullstatement . "<br>";
 				var_dump($bindParam->get());
+				echo "<br>";
 	
 				//Execute the query
 				$result = $stmt->execute();
@@ -103,6 +104,7 @@
 				else
 				while ($row = $result->fetch_assoc())
 				{
+					echo '<a href="entryview.php?entry=' . $row['id'] . '">' . 'Entry Link</a> <br>';
 					echo 'title: '.$row['title'].'<br>';
 					echo 'username: '.$row['username'].'<br>';
 					echo 'pricerequest: '.$row['pricerequest'].'<br>';
