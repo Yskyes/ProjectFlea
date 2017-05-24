@@ -11,6 +11,26 @@
    
 	//get the number of rows
 	$num_of_rows = $result->num_rows;
+	//print it all out
+	while ($row = $result->fetch_assoc()) {
+/*		echo 'title: '.$row['title'].'<br>';
+		echo 'username: '.$row['username'].'<br>';
+		echo 'pricerequest: '.$row['pricerequest'].'<br>';
+		echo 'leftdate: '.$row['leftdate'].'<br>';
+		echo 'categoryid: '.$row['categoryid'].'<br>';
+		echo 'locationid: '.$row['locationid'].'<br>';
+		echo 'description: '.$row['description'].'<br><br>'; */
+		$entrytitle = $row['title'];
+		$entryusername = $row['username'];
+		$entrypricerequest = $row['pricerequest'];
+		$entryleftdate = $row['leftdate'];
+		$entrycategoryid = $row['categoryid'];
+		$entrylocationid = $row['locationid'];
+		$entrydescription = $row['description'];
+	}
+	//free results
+	$stmt->free_result();
+	$stmt->close();
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,20 +51,14 @@
 		include 'nav.php';
 	?>
 	<br>
-	<div class=entrydiv><h4 class=entrydivheader>View Entry: <?php echo htmlentities($entrynumber); ?></h4>
-	<?php 	//print it all out
-	while ($row = $result->fetch_assoc()) {
-		echo 'title: '.$row['title'].'<br>';
-		echo 'username: '.$row['username'].'<br>';
-		echo 'pricerequest: '.$row['pricerequest'].'<br>';
-		echo 'leftdate: '.$row['leftdate'].'<br>';
-		echo 'categoryid: '.$row['categoryid'].'<br>';
-		echo 'locationid: '.$row['locationid'].'<br>';
-		echo 'description: '.$row['description'].'<br><br>';
-	}
-	//free results
-	$stmt->free_result();
-	$stmt->close();
+	<div class=entrydiv><h4 class=entrydivheader>Entry <?php echo $entrynumber . ': ' . $entrytitle; ?></h4>
+	<?php 
+		echo $entryusername . '<br>';
+		echo $entrypricerequest . '<br>';
+		echo $entryleftdate . '<br>';
+		echo $entrycategoryid . '<br>';
+		echo $entrylocationid . '<br>';
+		echo $entrydescription . '<br>';
 	?>
 	</div>
 	<?php
