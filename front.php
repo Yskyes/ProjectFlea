@@ -21,8 +21,11 @@
 	?>
 	<br>
 	<div class="entrydiv">
-		<p>This page could consist of a listing of newest ads for example</p>
-	</div>
+		<h2> What is Flea?</h2>
+		<p>Flea is the bass player for american funk-rock band Red Hot Chili Peppers. But in this context, Flea is a school project to create an online fleamarket / second-hand store. </p>
+		<p>In Flea, users can search for products other people are selling, or set up a new ad themselves. </p>
+		<p>Here are some of the ads that have just popped up on the site:</p>
+		<p>(They'd pop up here)</p>
 	<?php
 		include 'footer.php';
 	?>
