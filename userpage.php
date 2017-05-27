@@ -65,7 +65,8 @@
 								  </tr>";
 							while ($row = $result->fetch_assoc()) 
 							{
-								$table.= "<tr> <td>".$row['id']."</td> <td>".$row['title']."</td> <td>".$row['leftdate']."</td> <td>".$row['reportdescription']."</td></tr>";
+								$entryaddress = "entryview.php?entry=".$row['id'];
+								$table.= "<tr> <td>".$row['id']."</td> <td><u> <a href=".$entryaddress.">".$row['title']."</a></u> </td> <td>".$row['leftdate']."</td> <td>".$row['reportdescription']."</td></tr>";
 								
 							}
 							$table.="</table>";
@@ -79,6 +80,7 @@
 					
 						$userentries = "SELECT id, title, leftdate FROM advertisements 
 						JOIN sellers ON advertisements.username = sellers.username WHERE sellers.username = '$user'";
+
 
 						// Query the database 
 						$result = mysqli_query($connection, $userentries);
@@ -98,7 +100,8 @@
 								  </tr>";
 							while ($row = $result->fetch_assoc()) 
 							{
-								$table.= "<tr> <td>".$row['id']."</td> <td>".$row['title']."</td> <td>".$row['leftdate']."</td> </tr>";
+								$entryaddress = "entryview.php?entry=".$row['id'];
+								$table.= "<tr>  <td>".$row['id']."</td> <td><u> <a href=".$entryaddress.">".$row['title']."</a></u> </td> <td>".$row['leftdate']."</td></tr>";
 								
 							}
 							$table.="</table>";
