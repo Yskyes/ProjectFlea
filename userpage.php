@@ -33,35 +33,79 @@
 						header("Location: ./login.php" );
 						Exit();
 					}
-					// Fetch user info
+
+					// Check if the current user is admin
+
 					$user = $_SESSION["username"];
-					$userentries = "SELECT id, title, leftdate FROM advertisements 
-					JOIN sellers ON advertisements.username = sellers.username WHERE sellers.username = '$user'";
+					$checkadmin = "SELECT adminrights FROM sellers WHERE username = '$user'";
 
-					// Query the database 
-					$result = mysqli_query($connection, $userentries);
+					$result = mysqli_query($connection, $checkadmin);
 
-					if(mysqli_num_rows($result) == 0)
+					$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+					if ($row['adminrights']== 1)
 					{
-						echo "<br> You do not have any entries.<br>";
+						$reportedentries = "SELECT id, title, leftdate, reportdescription FROM advertisements WHERE reported = 1";
+
+						// Query the database 
+						$result = mysqli_query($connection, $reportedentries);
+
+						if(mysqli_num_rows($result) == 0)
+						{
+							echo "<br> No reported entries.<br>";
+						}
+						
+						else
+						{
+							//print it all out
+							$table="<table><tr>
+									    <th>Id</th>
+									    <th>Title</th>
+									    <th>Left Date</th>
+									    <th>Report Description</th>
+								  </tr>";
+							while ($row = $result->fetch_assoc()) 
+							{
+								$table.= "<tr> <td>".$row['id']."</td> <td>".$row['title']."</td> <td>".$row['leftdate']."</td> <td>".$row['reportdescription']."</td></tr>";
+								
+							}
+							$table.="</table>";
+							echo $table;
+						}
+
 					}
-					
 					else
 					{
-						//print it all out
-						$table="<table><tr>
-								    <th>Id</th>
-								    <th>Title</th>
-								    <th>Left Date</th>
-							  </tr>";
-						while ($row = $result->fetch_assoc()) 
+						// Fetch user info
+					
+						$userentries = "SELECT id, title, leftdate FROM advertisements 
+						JOIN sellers ON advertisements.username = sellers.username WHERE sellers.username = '$user'";
+
+						// Query the database 
+						$result = mysqli_query($connection, $userentries);
+
+						if(mysqli_num_rows($result) == 0)
 						{
-							$table.= "<tr> <td>".$row['id']."</td> <td>".$row['title']."</td> <td>".$row['leftdate']."</td> </tr>";
-							
+							echo "<br> You do not have any entries.<br>";
 						}
-						$table.="</table>";
-						echo $table;
-					}
+						
+						else
+						{
+							//print it all out
+							$table="<table><tr>
+									    <th>Id</th>
+									    <th>Title</th>
+									    <th>Left Date</th>
+								  </tr>";
+							while ($row = $result->fetch_assoc()) 
+							{
+								$table.= "<tr> <td>".$row['id']."</td> <td>".$row['title']."</td> <td>".$row['leftdate']."</td> </tr>";
+								
+							}
+							$table.="</table>";
+							echo $table;
+							}	
+						}
+
 
 				?>
 
