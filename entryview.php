@@ -34,7 +34,7 @@
 		<meta name="keywords" content="shopping, online, second-hand, fleamarket, HTML5, CSS">
 		<meta name="authors" content="Robin Jacobs, Mikko Jaakonsaari">
 		<link rel = "stylesheet" type = "text/css" href = "stylesheet.css">
-		<title>Flea <?php echo ' - ' . $entrytitle; ?></title>
+		<title>Flea <?php if (empty($entrytitle)) echo ' - No entry found!'; else echo ' - ' . $entrytitle; ?></title>
 	</head>
 	<body>
 		<?php
@@ -43,14 +43,18 @@
 		?>
 		<br>
 		<div class=entrydiv>
-			<h4 class=entrydivheader>Entry <?php echo $entrynumber . ': ' . $entrytitle; ?></h4>
-			<?php 
+			<h4 class=entrydivheader><?php if (empty($entrytitle)) echo 'No entry found!'; else echo 'Entry' . $entrynumber . ': ' . $entrytitle; ?></h4>
+			<?php //Basic print out of the entry information. If no valid entry matching the given ID is found, it gives an error message.
+			if (empty($entrytitle)) 
+				echo 'Either the entry ID entered is invalid, or the entry you were looking for no longer exists.'; 
+			else {
 				echo $entryusername . '<br>';
 				echo $entrypricerequest . '<br>';
 				echo $entryleftdate . '<br>';
 				echo $entrycategoryid . '<br>';
 				echo $entrylocationid . '<br>';
 				echo $entrydescription . '<br>';
+			}
 			?>
 		</div>
 		<?php
