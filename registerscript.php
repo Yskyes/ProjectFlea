@@ -23,9 +23,9 @@
 
 	// Illegal symbol + format checks
 
-	if (preg_match($illegal, $username)) 
+	if (preg_match($userformat, $username)) 
 	{
-		$_SESSION["registeruser"] = "Username contained illegal characters. Please refrain to letters, underscores, and numbers only";
+		$_SESSION["registeruser"] = "Username must be 5-14 characters long. Please refrain to letters, underscores, and numbers only";
     	header("Location: ./login.php" );
     	Exit();
 	}
