@@ -14,8 +14,6 @@
 			include 'nav.php';
 		?>
 		<br><div class=entrydiv>
-		<a href="http://localhost/projectflea/search.php"> <u>&larr; Back to search</u></a>
-		<br><br>
 			<?php 
 				require_once 'connection.php';
 				//This code was taken from a comment on the PHP manual's mysqli_stmt::bind_param page, after repeated failure at getting my own code to store references in an array
@@ -48,6 +46,13 @@
 				$fullstatement = ("SELECT * FROM advertisements");
 		
 				//Checks whether each field is empty. If not, it adds the relevant query conditions and parameters for bind_param
+				if ((empty($_GET['searchtitledescr'])) and (empty($_GET['searchuser'])) and (empty($_GET['searchcategory'])) and (empty($_GET['searchlocation'])))
+				{
+					$stmt = $connection->prepare($fullstatement);
+//					$stmt->bind_param($stmt,'' , );
+				}
+				else
+				{
 				if (!empty($_GET['searchtitledescr']))
 				{
 					$queryconditions[] = '(title LIKE ? OR description LIKE ?)';
@@ -83,11 +88,11 @@
 				//In the form of 1st element = a string corresponding to parameter types, aferwards each element a reference to a parameter.
 				//bind_param MUST be given references for the second element onwards. Dunno why.
 				call_user_func_array(array($stmt, 'bind_param'), $bindParam->get()); 
-		
+				}
 				//Debug printing, the final SQL query, and all parameters in the array given to bind_param
-				// echo $fullstatement . "<br>";
-				// var_dump($bindParam->get());
-				// echo "<br>";
+				echo $fullstatement . "<br>";
+				var_dump($bindParam->get());
+				echo "<br>";
 	
 				//Execute the query
 				$result = $stmt->execute();
@@ -104,25 +109,18 @@
 					echo 'No results for your search. Try different parameters';
 				}
 				else
+				while ($row = $result->fetch_assoc())
 				{
-					$table="<table><tr>
-									    <th>Title</th>
-									    <th>Price Request</th>
-									    <th>Left Date</th>
-								  </tr>";
-					while($row = $result->fetch_assoc()) 
-							{
-								$entryaddress = "entryview.php?entry=".$row['id'];
-								$table.= "<tr>  
-											<td><u> <a href=".$entryaddress.">".$row['title']."</a></u> </td> 
-											<td>".$row['pricerequest']."</td> 
-											<td>".$row['leftdate']."</td>
-										</tr>";
-								
-							}
-				$table.="</table>";
-				echo $table;
+					echo '<a href="entryview.php?entry=' . $row['id'] . '">' . 'Entry Link</a> <br>';
+					echo 'title: '.$row['title'].'<br>';
+					echo 'username: '.$row['username'].'<br>';
+					echo 'pricerequest: '.$row['pricerequest'].'<br>';
+					echo 'leftdate: '.$row['leftdate'].'<br>';
+					echo 'categoryid: '.$row['categoryid'].'<br>';
+					echo 'locationid: '.$row['locationid'].'<br>';
+					echo 'description: '.$row['description'].'<br><br>';
 				}
+	
 				//Free results from memory as they're no longer needed
 				$stmt->free_result();
 	
