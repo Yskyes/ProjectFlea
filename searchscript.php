@@ -14,6 +14,8 @@
 			include 'nav.php';
 		?>
 		<br><div class=entrydiv>
+			<a href="http://localhost/projectflea/search.php"> <u>&larr; Back to search</u></a>
+			<br><br>
 			<?php 
 				require_once 'connection.php';
 				//This code was taken from a comment on the PHP manual's mysqli_stmt::bind_param page, after repeated failure at getting my own code to store references in an array
@@ -90,9 +92,9 @@
 				call_user_func_array(array($stmt, 'bind_param'), $bindParam->get()); 
 				}
 				//Debug printing, the final SQL query, and all parameters in the array given to bind_param
-				echo $fullstatement . "<br>";
-				var_dump($bindParam->get());
-				echo "<br>";
+				//echo $fullstatement . "<br>";
+				//var_dump($bindParam->get());
+				//echo "<br>";
 	
 				//Execute the query
 				$result = $stmt->execute();
@@ -109,7 +111,8 @@
 					echo 'No results for your search. Try different parameters';
 				}
 				else
-				while ($row = $result->fetch_assoc())
+				{
+				/*while ($row = $result->fetch_assoc())
 				{
 					echo '<a href="entryview.php?entry=' . $row['id'] . '">' . 'Entry Link</a> <br>';
 					echo 'title: '.$row['title'].'<br>';
@@ -118,7 +121,24 @@
 					echo 'leftdate: '.$row['leftdate'].'<br>';
 					echo 'categoryid: '.$row['categoryid'].'<br>';
 					echo 'locationid: '.$row['locationid'].'<br>';
-					echo 'description: '.$row['description'].'<br><br>';
+					echo 'description: '.$row['description'].'<br><br>'; 
+				} */
+				$table="<table><tr>
+				<th>Title</th>
+				<th>Price Request</th>
+				<th>Left Date</th>
+				</tr>";
+				while($row = $result->fetch_assoc()) 
+					{
+					$entryaddress = "entryview.php?entry=".$row['id'];
+					$table.= "<tr>  
+					<td><u> <a href=".$entryaddress.">".$row['title']."</a></u> </td> 
+					<td>".$row['pricerequest']."</td> 
+					<td>".$row['leftdate']."</td>
+					</tr>";
+					}
+				$table.="</table>";
+				echo $table;
 				}
 	
 				//Free results from memory as they're no longer needed
