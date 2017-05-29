@@ -47,17 +47,16 @@ JOIN categories ON advertisements.categoryid = categories.id
 		?>
 		<br>
 		<div class=entrydiv>
-			<h4 class=entrydivheader><?php if (empty($entrytitle)) echo 'No entry found!'; else echo $entrytitle; ?></h4>
+			<h4 class=entrydivheader><?php if (empty($entrytitle)) echo 'No entry found!'; else echo $entrytitle." - ".$entrypricerequest; ?></h4>
 			<?php //Basic print out of the entry information. If no valid entry matching the given ID is found, it gives an error message.
 			if (empty($entrytitle)) 
 				echo 'Either the entry ID entered is invalid, or the entry you were looking for no longer exists.'; 
 			else {
-				echo $entryusername . '<br>';
-				echo $entrypricerequest . '<br>';
-				echo $entryleftdate . '<br>';
-				echo $entrycategoryid . '<br>';
-				echo $entrylocationid . '<br>';
-				echo $entrydescription . '<br>';
+				echo 'By <b>'.$entryusername . '</b>. left on <b>'.$entryleftdate . '</b>.<br><br>';
+				echo 'In category <b>'.$entrycategoryid . '.</b><br>';
+				echo 'In <b>'.$entrylocationid . '.</b><br><br>';
+				echo '<b>Description:</b><br><br>'; 
+				echo nl2br($entrydescription) . '<br>';
 			}
 			?>
 		</div>
