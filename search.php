@@ -25,7 +25,7 @@
 					<tr><td>By Location:</td><td><input type="text" name="searchlocation"></tr>
 					<tr><td>By Category:</td><td><select name="searchcategory">
 						<option></option>
-						<option disabled>--- Entertainment</option>
+						<option value=1>--- Entertainment</option>
 						<option value=6>Books</option>
 						<option value=7>Films</option>
 						<option value=8>Music</option>
@@ -34,14 +34,14 @@
 						<option value=11>Art & Supplies</option>
 						<option value=12>Toys</option>
 						<option value=13>Sports Equipment</option>
-						<option disabled>--- Electronics</option>
+						<option value=2>--- Electronics</option>
 						<option value=14>Computers, Components & Accessories</option>
 						<option value=15>Phones & Accessories</option>
 						<option value=16>TV & Video</option>
 						<option value=17>Audio Equipment & Accessories</option>
 						<option value=18>Musical Equipment & Accessories</option>
 						<option value=19>Wearables, Small Electronics & Misc.</option>
-						<option disabled>--- Home, Garden & DIY</option>
+						<option value=3>--- Home, Garden & DIY</option>
 						<option value=20>Tools</option>
 						<option value=21>Appliances</option>
 						<option value=22>Lighting</option>
@@ -51,7 +51,7 @@
 						<option value=26>Kitchen, Bathroom & Toilet Fixtures</option>
 						<option value=27>Flooring, Carpets, Wallpaper & Paints</option>
 						<option value=28>Windows, Frames, Curtains & Blinds</option>
-						<option disabled>--- Clothing, Travel & Jewelry</option>
+						<option value=4>--- Clothing, Travel & Jewelry</option>
 						<option value=29>Men</option>
 						<option value=30>Women</option>
 						<option value=31>Children</option>
@@ -59,7 +59,7 @@
 						<option value=33>Shoes</option>
 						<option value=34>Jewelry</option>
 						<option value=35>Luggage</option>
-						<option disabled>--- Vehicles</option>
+						<option value=5>--- Vehicles</option>
 						<option value=36>Cars</option>
 						<option value=37>Vans</option>
 						<option value=38>Motorcycles</option>

@@ -25,8 +25,8 @@
 					private $values = array(), $types = '';
 					public function add( $type, &$value )
 					{
-						$this->values[] = &$value;
-						$this->types .= $type;
+						$this->values[] = &$value;	//Adds references to array, as bind_param and call_user_func_array requires.
+						$this->types .= $type;		//Appends data type indicator to type string. This will become the first value in the array when get() is called
 					}
 					public function get()
 					{
@@ -38,58 +38,66 @@
 				$searchcategory = $_GET['searchcategory'];
 				$searchlocation = $_GET['searchlocation'];
 	
-				//Same as above, and allow for partial matches. TODO: allow user to specify whether they want partial or full matches
+				//Same as above, and allow for partial string matches.
 				$searchtitledescr = '%' . $_GET['searchtitledescr'] . '%';
 				$searchuser = '%' . $_GET['searchuser'] . '%';
 	
 				//Begins the process of assembling what will become the prepared statement, and its parameters, based on what forms are non-empty
 				$bindParam = new BindParam(); 
 				$queryconditions = array();
-				$fullstatement = ("SELECT * FROM advertisements");
+				$fullstatement = 'SELECT * FROM advertisements a';
 		
-				//Checks whether each field is empty. If not, it adds the relevant query conditions and parameters for bind_param
+				//Checks whether all fields is empty, and if so prepares a basic statement.
 				if ((empty($_GET['searchtitledescr'])) and (empty($_GET['searchuser'])) and (empty($_GET['searchcategory'])) and (empty($_GET['searchlocation'])))
 				{
 					$stmt = $connection->prepare($fullstatement);
-//					$stmt->bind_param($stmt,'' , );
 				}
+				//If not, checks whether each search field is not empty, and adds appropriate query conditions and parameters
 				else
 				{
-				if (!empty($_GET['searchtitledescr']))
-				{
-					$queryconditions[] = '(title LIKE ? OR description LIKE ?)';
-					$bindParam->add('s', $searchtitledescr);
-					$bindParam->add('s', $searchtitledescr);
-				}
-	
-				if (!empty($_GET['searchuser']))
-				{
-					$queryconditions[] = 'username LIKE ?';
-					$bindParam->add('s', $searchuser);
-				}
-		
-				if (!empty($_GET['searchcategory']))
-				{
-					$queryconditions[] = 'categoryid = ?';
-					$bindParam->add('i', $searchcategory);
-				}
-	
-				if (!empty($_GET['searchlocation']))
-				{
-					$queryconditions[] = 'locationid = ?';
-					$bindParam->add('i', $searchlocation);
-				}
-				
-				//Implode the queryconditions array, inserting ' AND ' in between each elemeent as it goes, and adding it to the base fullstatement
-				$fullstatement = $fullstatement . " WHERE " . implode(" AND ",$queryconditions);
-				
-				//Prepares the now-assembled query
-				$stmt = $connection->prepare($fullstatement);
-				
-				//Calls the array returned from bindParam function
-				//In the form of 1st element = a string corresponding to parameter types, aferwards each element a reference to a parameter.
-				//bind_param MUST be given references for the second element onwards. Dunno why.
-				call_user_func_array(array($stmt, 'bind_param'), $bindParam->get()); 
+					//If the category to search for is a child category, add basic WHERE clause like all the others
+					if ((!empty($_GET['searchcategory'])) && ($_GET['searchcategory']) > 5)
+					{
+						$queryconditions[] = 'a.categoryid = ?';
+						$bindParam->add('i', $searchcategory);
+					}
+					//For parent categories, things get a bit more complicated, as all WHERE clauses need to be added after JOIN.
+					if ((!empty($_GET['searchcategory'])) && ($_GET['searchcategory']) <= 5)
+					{
+						$fullstatement .= ' JOIN categories c ON a.categoryid = c.id LEFT JOIN categories f on f.id = c.parentcategory';
+						$queryconditions[] = 'c.parentcategory = ?';
+						$bindParam->add('i', $searchcategory);
+					}
+					//Searches both title and description for the same string
+					if (!empty($_GET['searchtitledescr']))
+					{
+						$queryconditions[] = '(a.title LIKE ? OR a.description LIKE ?)';
+						$bindParam->add('s', $searchtitledescr);
+						$bindParam->add('s', $searchtitledescr);
+					}
+					//Basic user ID match
+					if (!empty($_GET['searchuser']))
+					{
+						$queryconditions[] = 'a.username LIKE ?';
+						$bindParam->add('s', $searchuser);
+					}
+					//Currently user has to input the correct ID that corresponds to their location.
+					if (!empty($_GET['searchlocation']))
+					{
+						$queryconditions[] = 'a.locationid = ?';
+						$bindParam->add('i', $searchlocation);
+					}
+					
+					//Implode the queryconditions array, inserting ' AND ' in between each elemeent as it goes, and adding it to the base fullstatement
+					$fullstatement = $fullstatement . " WHERE " . implode(" AND ",$queryconditions);
+					
+					//Prepares the now-assembled query
+					$stmt = $connection->prepare($fullstatement);
+					
+					//Calls the array returned from bindParam function
+					//In the form of 1st element = a string corresponding to parameter types, aferwards each element a reference to a parameter.
+					//bind_param MUST be given references for the second element onwards.
+					call_user_func_array(array($stmt, 'bind_param'), $bindParam->get()); 
 				}
 				//Debug printing, the final SQL query, and all parameters in the array given to bind_param
 				//echo $fullstatement . "<br>";
@@ -105,7 +113,7 @@
 				//Get the number of rows
 				$num_of_rows = $result->num_rows;
 		
-				//Print all of the results
+				//Print all of the results. If none, basic message printed instead.
 				if ($num_of_rows == 0)
 				{
 					echo 'No results for your search. Try different parameters';
@@ -123,22 +131,22 @@
 					echo 'locationid: '.$row['locationid'].'<br>';
 					echo 'description: '.$row['description'].'<br><br>'; 
 				} */
-				$table="<table><tr>
-				<th>Title</th>
-				<th>Price Request</th>
-				<th>Left Date</th>
-				</tr>";
-				while($row = $result->fetch_assoc()) 
-					{
-					$entryaddress = "entryview.php?entry=".$row['id'];
-					$table.= "<tr>  
-					<td><u> <a href=".$entryaddress.">".$row['title']."</a></u> </td> 
-					<td>".$row['pricerequest']."</td> 
-					<td>".$row['leftdate']."</td>
+					$table="<table><tr>
+					<th>Title</th>
+					<th>Price Request</th>
+					<th>Left Date</th>
 					</tr>";
-					}
-				$table.="</table>";
-				echo $table;
+					while($row = $result->fetch_assoc()) 
+						{
+						$entryaddress = "entryview.php?entry=".$row['id'];
+						$table.= "<tr>  
+						<td><u> <a href=".$entryaddress.">".$row['title']."</a></u> </td> 
+						<td>".$row['pricerequest']."</td> 
+						<td>".$row['leftdate']."</td>
+						</tr>";
+						}
+					$table.="</table>";
+					echo $table;
 				}
 	
 				//Free results from memory as they're no longer needed
