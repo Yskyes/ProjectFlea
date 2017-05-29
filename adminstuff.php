@@ -18,14 +18,27 @@
 		?>
 		<br>
 		<div class=entrydiv>
-			<h4 class=entrydivheader>Deleted entry</h4>
             <?php 
-            	$stmt = $connection->prepare("DELETE FROM advertisements WHERE id = ?");
-            	$entryid = $_POST['entry_id'];
-            	$stmt->bind_param('i',$entryid);
-            	$stmt->execute();
-                printf("%d Row deleted.\n", $connection->affected_rows);
-                $stmt->close();
+            if (adminPrivCheck($connection) == false)
+            {
+            echo '<h4 class=entrydivheader>404 - Page Not Found</h4>';
+            echo 'Check the URL you typed in, or inform the administration if this page should exist.<br>';
+            }
+            else 
+            {
+                if (empty($_POST['entry_id']))
+                    echo 'No valid ID given';
+                else
+                {
+                	$stmt = $connection->prepare("DELETE FROM advertisements WHERE id = ?");
+                	$entryid = $_POST['entry_id'];
+                	$stmt->bind_param('i',$entryid);
+                	$stmt->execute();
+                    echo '<h4 class=entrydivheader>Deleted entry</h4>';
+                    printf("%d Row deleted.\n", $connection->affected_rows);
+                    $stmt->close();
+                }
+            }
             ?>
             <br><a href="http://localhost/projectflea/front.php"> <u>&larr; Back to front page</u></a>
 		</div>
