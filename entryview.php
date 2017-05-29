@@ -49,8 +49,11 @@ JOIN categories ON advertisements.categoryid = categories.id
 		<div class=entrydiv>
 			<h4 class=entrydivheader><?php if (empty($entrytitle)) echo 'No entry found!'; else echo $entrytitle." - ".$entrypricerequest; ?></h4>
 			<?php //Basic print out of the entry information. If no valid entry matching the given ID is found, it gives an error message.
-			if (empty($entrytitle)) 
-				echo 'Either the entry ID entered is invalid, or the entry you were looking for no longer exists.'; 
+			if (empty($entrytitle))
+			{
+				echo 'Either the entry ID entered is invalid, or the entry you were looking for no longer exists.<br>';
+				echo '<a href="http://localhost/projectflea/front.php"> <u>&larr; Back to front page</u></a>';
+			}
 			else {
 				echo 'By <b>'.$entryusername . '</b>. left on <b>'.$entryleftdate . '</b>.<br><br>';
 				echo 'In category <b>'.$entrycategoryid . '.</b><br>';
@@ -58,14 +61,18 @@ JOIN categories ON advertisements.categoryid = categories.id
 				echo '<b>Description:</b><br><br>'; 
 				echo nl2br($entrydescription) . '<br>';
 			}
+			
 			//Admin button!
-			
-			if (adminPrivCheck($connection) == true)
-			
+			if (!empty($entrytitle))
 			{
-			
-				echo '<button>Hello admin!</button>';
-			
+				if (adminPrivCheck($connection) == true)
+				{
+					echo '<br><button>Hello admin!</button>';
+				}
+				else
+				{
+					echo '<br><button>Report user</button>';
+				}
 			}
 			?>
 		</div>

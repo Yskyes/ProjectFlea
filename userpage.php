@@ -35,8 +35,8 @@
 					}
 
 					// Check if the current user is admin
-					/*$user = $_SESSION["username"];
-					$checkadmin = "SELECT adminrights FROM sellers WHERE username = '$user'";
+					$user = $_SESSION["username"];
+					/*$checkadmin = "SELECT adminrights FROM sellers WHERE username = '$user'";
 
 					$result = mysqli_query($connection, $checkadmin);
 
