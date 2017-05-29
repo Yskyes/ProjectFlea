@@ -13,8 +13,8 @@
 
 	//Regular expression to check the values for 2nd time
 
-	$illegal = "\/[\^\<\,\"@\/\{\}\(\)\*\$\%\?\=\>\:\|\;\#](select|drop|update|delete|order by|group by)+\/"; // Just checks for illegal symbols + SQL keywords since otherwise it might block people's names.
-	$userformat = "\/\^[a-zA-Z0-9_]{5,14}$/";
+	$illegal = "\/[\^\<\,\"@\/\{\}\(\)\*\$\%\?\=\>\:\|\;\#](select|drop|update|delete|order by|group by)+\/"; // 
+	$userformat = "\/\^[a-zA-Z0-9_]{5,14}$\/";
 	$nameformat = "[\^\<\,\"@\/\{\}\(\)\*\$\%\?\=\>\:\|\;\#]+\/"; // Just checks for illegal symbols since otherwise it might block people's names.
 	$phoneno = '\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}'; //expression works
 	$mailformat = '^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$'; //expression works
@@ -30,7 +30,7 @@
     	Exit();
 	}
 
-	if (preg_match($illegal, $fullname)) 
+	if (preg_match($Illegal, $fullname)) 
 	{
 		$_SESSION["registerfull"] = "Password contained illegal characters. Please refrain to letters, underscores, and numbers only";
     	header("Location: ./login.php" );
