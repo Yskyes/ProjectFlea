@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="windows-1252">
 		<meta name="description" content="online second-hand shopping platform!">
 		<meta name="keywords" content="shopping, online, second-hand, fleamarket, HTML5, CSS">
 		<meta name="authors" content="Robin Jacobs, Mikko Jaakonsaari">
@@ -23,7 +23,24 @@
 			<form action="searchscript.php" method="GET">
 				<table>
 					<tr><td>By Username:</td><td><input type="text" name="searchuser"></tr>
-					<tr><td>By Location:</td><td><input type="text" name="searchlocation"></tr>
+				<!--	<tr><td>By Location:</td><td><input type="text" name="searchlocation"></tr> -->
+
+					<tr><td>By Location:</td><td><select name="searchlocation">
+						<option></option>
+						<?php
+						//A little query to populate the dropdown list instead of writing 200+ options by hand.
+							$stmt = $connection->prepare("SELECT id, name FROM locations ORDER BY name");
+							$result = $stmt->execute();
+							$result = $stmt->get_result();
+							$num_of_rows = $result->num_rows;
+							while($row = $result->fetch_assoc()) 
+							{
+								echo '<option value='.$row[id].'>'.$row['name'].'</option>';
+							}
+							$stmt->free_result();
+							$stmt->close();
+						?>
+					</select></td></tr>
 					<tr><td>By Category:</td><td><select name="searchcategory">
 						<option></option>
 						<option value=1>--- Entertainment</option>
