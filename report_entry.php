@@ -9,7 +9,7 @@
 		<meta name="keywords" content="shopping, online, second-hand, fleamarket, HTML5, CSS">
 		<meta name="authors" content="Robin Jacobs, Mikko Jaakonsaari">
 		<link rel = "stylesheet" type = "text/css" href = "stylesheet.css">
-		<title>Flea - Admin Stuff</title>
+		<title>Flea - Report Entry</title>
 	</head>
 	<body>
 		<?php
@@ -19,12 +19,11 @@
 		<br>
 		<div class=entrydiv>
             <?php 
-            if (adminPrivCheck($connection) == false)
+			if (!isset($_SESSION["username"]))
             {
             echo '<h4 class=entrydivheader>404 - Page Not Found</h4>';
             echo 'Check the URL you typed in, or inform the administration if this page should exist.<br>';
-            echo '<br><a href="http://localhost/projectflea/front.php"> <u>&larr; Back to front page</u></a>';
-			exit();
+            exit();
             }
             else 
             {
@@ -32,12 +31,12 @@
                     echo 'No valid ID given';
                 else
                 {
-                	$stmt = $connection->prepare("DELETE FROM advertisements WHERE id = ?");
+                	$stmt = $connection->prepare("UPDATE advertisements SET reported = 1, reportdescription = ?  WHERE id = ?");
                 	$entryid = $_POST['entry_id'];
-                	$stmt->bind_param('i',$entryid);
+                	$reportdescription = $_POST['reportdescription'];
+                	$stmt->bind_param('si',$reportdescription, $entryid);
                 	$stmt->execute();
-                    echo '<h4 class=entrydivheader>Deleted entry</h4>';
-                    printf("%d Row deleted.\n", $connection->affected_rows);
+                    echo 'Report sent.';
                     $stmt->close();
                 }
             }
