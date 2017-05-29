@@ -2,12 +2,12 @@
 	
 	require_once 'connection.php';
 
-
-	if(!(isset($_SESSION["username"])))
+if(!(isset($_SESSION["username"])))
 	{
 		header("Location: ./front.php" );
 		Exit();
 	}
+	
 
 	//Check that the current password is correct
 

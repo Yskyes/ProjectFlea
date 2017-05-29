@@ -28,7 +28,21 @@
 			<table> 
 				<tr><td>Title:</td><td><input type="text" name=title></td></tr>
 				<tr><td>Asking price:</td><td><input type="text" name=price></td></tr>
-				<tr><td>Location (use municipality or region) : </td><td><input type="text" name=location></td></tr>
+				<tr><td>Location:</td><td><select name="location">
+						<?php
+						//A little query to populate the dropdown list instead of writing 200+ options by hand.
+							$stmt = $connection->prepare("SELECT id, name FROM locations ORDER BY name");
+							$result = $stmt->execute();
+							$result = $stmt->get_result();
+							$num_of_rows = $result->num_rows;
+							while($row = $result->fetch_assoc()) 
+							{
+								echo '<option value='.$row[id].'>'.$row['name'].'</option>';
+							}
+							$stmt->free_result();
+							$stmt->close();
+						?>
+					</select></td></tr>
 				<tr><td>Select category:</td><td><select name="category">
 					<option value=1>---Entertainment</option>
 					<option value=6>Books</option>
