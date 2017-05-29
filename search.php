@@ -18,7 +18,6 @@
 			include 'nav.php';
 		?>
 	<br>
-	
 		<div class=entrydiv><h4 class=entrydivheader>Search Entries:</h4>
 			<form action="searchscript.php" method="GET">
 				<table>
@@ -28,14 +27,31 @@
 					<tr><td>By Location:</td><td><select name="searchlocation">
 						<option></option>
 						<?php
-						//A little query to populate the dropdown list instead of writing 200+ options by hand.
-							$stmt = $connection->prepare("SELECT id, name FROM locations ORDER BY name");
+						//A query to populate the location dropdown automatically. Organised by parent location and it's children thanks to: https://stackoverflow.com/a/29655750
+							$stmt = $connection->prepare("SELECT * FROM locations as t
+															ORDER BY
+														CASE
+													       WHEN parentlocation IS NOT NULL THEN (SELECT id FROM locations WHERE id = t.parentlocation LIMIT 1)
+													       ELSE id
+													   END,
+													   CASE
+													       WHEN parentlocation IS NULL THEN -1
+													       ELSE id
+													   END;");
 							$result = $stmt->execute();
 							$result = $stmt->get_result();
 							$num_of_rows = $result->num_rows;
-							while($row = $result->fetch_assoc()) 
+							while($row = $result->fetch_assoc())
 							{
-								echo '<option value='.$row[id].'>'.$row['name'].'</option>';
+								if ($row[id] <= 19)
+								{
+									echo '<option value='.$row[id].'> ----'.$row['name'].'</option>';
+								}
+								else 
+								{
+									echo '<option value='.$row[id].'>'.$row['name'].'</option>';
+								}
+
 							}
 							$stmt->free_result();
 							$stmt->close();

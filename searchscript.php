@@ -81,8 +81,14 @@
 						$queryconditions[] = 'a.username LIKE ?';
 						$bindParam->add('s', $searchuser);
 					}
-					//Currently user has to input the correct ID that corresponds to their location.
-					if (!empty($_GET['searchlocation']))
+					//Basic location match from value given by dropdown
+					if ((!empty($_GET['searchlocation'])) && ($_GET['searchlocation']) <= 19)
+					{
+						$fullstatement .= ' JOIN locations loc ON a.locationid = loc.id LEFT JOIN locations l on l.id = loc.parentlocation';
+						$queryconditions[] = 'loc.parentlocation = ?';
+						$bindParam->add('i', $searchlocation);
+					}
+					if ((!empty($_GET['searchlocation'])) && ($_GET['searchlocation']) > 19)
 					{
 						$queryconditions[] = 'a.locationid = ?';
 						$bindParam->add('i', $searchlocation);

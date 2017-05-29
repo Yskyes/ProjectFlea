@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 	require_once 'connection.php';	
 ?>
 <!DOCTYPE html>
@@ -118,7 +118,7 @@
 	?>
 	<br>
 	<p id="error">  </p>
-	<h4 class=entrydivheader>Register:</h4>
+	<div class=entrydiv><h4 class=entrydivheader>Register:</h4>
 		<form name="register" action="registerscript.php" method="POST" onsubmit="return validateRegister()"  autocomplete="on"  >
 		<!--  -->
 			<table>
