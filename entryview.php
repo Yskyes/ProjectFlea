@@ -4,7 +4,11 @@
 	//Fetches the entry number to search for from the part of the url 'entry=?'
 	$entrynumber = $_GET['entry'];
 	//Prepares and binds parameters for a basic SELECT query to get all of the entry details
-	$stmt = $connection->prepare("SELECT * FROM advertisements WHERE id = ?");
+	$stmt = $connection->prepare("SELECT advertisements.id, advertisements.pricerequest, advertisements.leftdate, locations.name AS location, categories.name AS category, advertisements.username, advertisements.title, advertisements.description FROM advertisements
+JOIN locations ON advertisements.locationid = locations.id
+JOIN categories ON advertisements.categoryid = categories.id
+ WHERE advertisements.id = ?");
+
 	$stmt->bind_param("i", $entrynumber);
 	//Execute query
 	$result = $stmt->execute();
@@ -18,8 +22,8 @@
 		$entryusername = $row['username'];
 		$entrypricerequest = $row['pricerequest'];
 		$entryleftdate = $row['leftdate'];
-		$entrycategoryid = $row['categoryid'];
-		$entrylocationid = $row['locationid'];
+		$entrycategoryid = $row['category'];
+		$entrylocationid = $row['location'];
 		$entrydescription = $row['description'];
 	}
 	//Free results and close statement
@@ -43,7 +47,7 @@
 		?>
 		<br>
 		<div class=entrydiv>
-			<h4 class=entrydivheader><?php if (empty($entrytitle)) echo 'No entry found!'; else echo 'Entry' . $entrynumber . ': ' . $entrytitle; ?></h4>
+			<h4 class=entrydivheader><?php if (empty($entrytitle)) echo 'No entry found!'; else echo $entrytitle; ?></h4>
 			<?php //Basic print out of the entry information. If no valid entry matching the given ID is found, it gives an error message.
 			if (empty($entrytitle)) 
 				echo 'Either the entry ID entered is invalid, or the entry you were looking for no longer exists.'; 

@@ -151,7 +151,7 @@
     		<?php
 					if (isset($_SESSION["updatepassword"]))
 					{
-						echo ("<tr><td>" .  $_SESSION["updatepassword"]. " </tr></td>");
+						echo ("<tr><td>" .  $_SESSION["updatepassword"]. " </td></tr>");
 						unset($_SESSION["updatepassword"]);
 					}
 					
@@ -160,7 +160,7 @@
     		<?php
 					if (isset($_SESSION["updateemail"]))
 					{
-						echo ("<tr><td>" .  $_SESSION["updateemail"]. " </tr></td>");
+						echo ("<tr><td>" .  $_SESSION["updateemail"]. " </td></tr>");
 						unset($_SESSION["updateemail"]);
 					}
 					
@@ -169,7 +169,7 @@
 			<?php
 					if (isset($_SESSION["updatephone"]))
 					{
-						echo ("<tr><td>" .  $_SESSION["updatephone"]. " </tr></td>");
+						echo ("<tr><td>" .  $_SESSION["updatephone"]. " </td></tr>");
 						unset($_SESSION["updatephone"]);
 					}
 					
@@ -178,7 +178,7 @@
     		<?php
 					if (isset($_SESSION["oldpassword"]))
 					{
-						echo ("<tr><td>" .  $_SESSION["repeatpassword"]. " </tr></td>");
+						echo ("<tr><td>" .  $_SESSION["repeatpassword"]. " </td></tr>");
 						unset($_SESSION["repeatpassword"]);
 					}
 					
@@ -187,7 +187,7 @@
     		<?php
 					if (isset($_SESSION["updatestatus"]))
 					{
-						echo ("<tr><td>" .  $_SESSION["updatestatus"]. " </tr></td>");
+						echo ("<tr><td>" .  $_SESSION["updatestatus"]. " </td></tr>");
 						unset($_SESSION["updatestatus"]);
 					}
 					

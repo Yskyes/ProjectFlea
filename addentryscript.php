@@ -12,41 +12,49 @@
 	$title = $_POST['title'];
 	$price = $_POST['price'];
 	$category =  $_POST['category'];
+	$location = $_POST['location'];
 	$description = $_POST['description'];
 	$username = $_SESSION["username"];
 
-	
-	$title = htmlspecialchars($title, ENT_QUOTES);
-	$price = htmlspecialchars($price, ENT_QUOTES);
-	// locations have special chars so converting is not an option. The string needs to pass another form of validation.
-	$location = $_POST['location']; 
-	//even though this is just a number
-	$category = htmlspecialchars($category, ENT_QUOTES);
-
-	if(isset($_FILES['image']) 
+	if (strlen($title) > 30)
 	{
-    if($_FILES['image']['size'] > 10485760) { //10 MB (size is also in bytes)
-        // File too big
-    } else {
-        // File within size restrictions
-    }
+		$_SESSION["addentryerror"] = "The title was more than 30 characters long.";
+		header("Location: ./addentry.php");
+		Exit();
+	}
+	
+	if (strlen($price) > 10)
+	{
+		$_SESSION["addentryerror"] = "The price tag was more than 10 characters long.";
+		header("Location: ./addentry.php");
+		Exit();
+	}
+	
+	
+	if (strlen($description) > 300)
+	{
+		$_SESSION["addentryerror"] = "The description was more than 300 characters long.";
+		header("Location: ./addentry.php");
+		Exit();
+	}
 
-	$image = addslashes(file_get_contents($_FILES['image'])); //SQL Injection defence!
+	$titlechar = htmlspecialchars($title, ENT_QUOTES);
+	$pricechar = htmlspecialchars($price, ENT_QUOTES);
+	$descriptionchar = 	htmlspecialchars($description, ENT_QUOTES);
 
-	$description = 	htmlspecialchars($description, ENT_QUOTES);
-
-	$addentry = "INSERT INTO advertisements (pricerequest, leftdate, picture, locationid, categoryid, username, 		title, description)
-				VALUES ('$pricerequest', CURDATE(), '$image', '$location', '$category', '$username', 'title', '$description')";
+	$addentry = "INSERT INTO advertisements (pricerequest, leftdate, locationid, categoryid, username, 		title, description)
+				VALUES ('$pricechar', CURDATE(), '$location', '$category', '$username', '$titlechar', '$descriptionchar')";
 
 	if (mysqli_query($connection, $addentry))
 	{
-		header("Location: ./entryview.php$row['id']");
+		$_SESSION["addentryerror"] = "Adding your entry was successful. You can find a link to it from your profile. ";
+		header("Location: ./addentry.php" );
     	Exit();
 	}
 	else
 	{
-		$_SESSION["registermsg"] = "Registration was not successful. Please try again. ";
-		header("Location: ./login.php" );
+		$_SESSION["addentryerror"] = "Adding your entry was not successful. Please try again. ";
+		header("Location: ./addentry.php" );
     	Exit();
 	}
 

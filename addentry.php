@@ -88,13 +88,20 @@
 					<option value=42>Electronics & Accessories</option>
 					<option value=43>Spare/Replacement Parts</option>
 				</select></td></tr>
-		  		<tr><td>Select image: <td align="left"><input type="file" name="pic" accept="image/*"></td>
+		  		<tr><td>Select image: <b>NOT WORKING</b><td align="left"><input type="file" name="pic" accept="image/*"></td>
 		  		<tr><td>Description</td><td>(max 400 characters):</td></tr>
 				<tr><td><textarea  colspan="2" name="description" cols="50" rows="10"></textarea></td></tr>
 				<tr><td colspan="2"><input type="checkbox" name="agreement" value=1>I have read and agree to the Terms & Conditions<br></td></tr>
 				<tr><td><input type="submit" value="Submit Entry"></td>
 	  		</table>
 		</form>
+		<?php
+					if (isset($_SESSION["addentryerror"]))
+						{
+							echo ("<p>" .  $_SESSION["addentryerror"]. " </p>");
+							unset($_SESSION["addentryerror"]);
+						}
+				?>
 	</div>
 	<?php
 		include 'footer.php';
