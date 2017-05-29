@@ -24,7 +24,7 @@
 	<div class="entrydiv">
 	<h4 class="entrydivheader">User Details:</h4>
 	    
-	    	<li><b>Own Entries</b></li><br>
+	    	
 			<!-- This should execute a search upon loading and list links to all user's own entries -->
 				<?php
 	    			// Check that the user is logged in, otherwise redirect
@@ -40,10 +40,13 @@
 
 					$result = mysqli_query($connection, $checkadmin);
 
+					
+
 					$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 					if ($row['adminrights']== 1)*/
 					if (adminPrivCheck($connection) == true)
 					{
+						echo "<li><b>Reports: </b></li><br>";
 						$reportedentries = "SELECT id, title, leftdate, reportdescription FROM advertisements WHERE reported = 1";
 
 						// Query the database 
@@ -81,7 +84,7 @@
 						$userentries = "SELECT id, title, leftdate FROM advertisements 
 						JOIN sellers ON advertisements.username = sellers.username WHERE sellers.username = '$user'";
 
-
+						echo "<li><b>My entries: </b></li><br>";
 						// Query the database 
 						$result = mysqli_query($connection, $userentries);
 
@@ -194,6 +197,17 @@
 			?>
     	</table>
     	</form>
+    	<br>
+    	<b>Delete Your Account</b>
+    	<br>
+    	<table>
+    	<form name="delete" action="deleteuser.php" method="POST" autocomplete="off">
+			<tr><td>Current Password: </td><td><input type="password" name="currentpassword" id="currentpassword"></tr>
+			<tr><td>Are you sure? </td><td><input type="checkbox" required> Yes </td></tr>
+			<tr><td>Delete My Account</td><td><input type="submit"></td></tr>
+
+    	</form>
+    	</table>
 	</div>
 	<?php
 		include 'footer.php';

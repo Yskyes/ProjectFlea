@@ -21,6 +21,14 @@
 	?>
 	<br>
 	<div class="entrydiv">
+	<?php
+		if(isset($_SESSION["delete_succesful"]))
+		{
+			echo $_SESSION["delete_succesful"];
+			unset($_SESSION["delete_succesful"]);
+		
+		}
+	?>
 		<h2> What is Flea?</h2>
 		<p>Flea is the bass player for american funk-rock band Red Hot Chili Peppers. But in this context, Flea is a school project to create an online fleamarket / second-hand store. </p>
 		<p>In Flea, users can search for products other people are selling, or set up a new ad themselves. </p>
