@@ -67,7 +67,10 @@ JOIN categories ON advertisements.categoryid = categories.id
 			{
 				if (adminPrivCheck($connection) == true)
 				{
-					echo '<br><button>Hello admin!</button>';
+					echo '<form action="adminstuff.php" method="POST">';
+					echo '<input type="hidden" name="entry_id" value="'.$entrynumber.'">';
+					echo '<input type="submit" value="Delete entry" name="submit_search">
+					</form>';
 				}
 				else
 				{
