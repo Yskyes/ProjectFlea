@@ -18,6 +18,7 @@
 			include 'nav.php';
 		?>
 	<br>
+	
 		<div class=entrydiv><h4 class=entrydivheader>Search Entries:</h4>
 			<form action="searchscript.php" method="GET">
 				<table>

@@ -17,7 +17,7 @@
 	// img is gonna have its own validation 
 	$image = $_POST['pic'];
 
-	$description = htmlspecialchars($description, ENT_QUOTES);
+	$description = 	htmlspecialchars($description, ENT_QUOTES);
 
 	echo $title;
 	echo $price;
