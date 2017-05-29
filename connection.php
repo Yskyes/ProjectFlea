@@ -26,5 +26,21 @@
 	}
 	
 	$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
+	function adminPrivCheck($connection)
+	{
+		if(!isset($_SESSION["username"]))
+			return false;
+		else
+		{
+			$user = $_SESSION["username"];
+			$checkadmin = "SELECT adminrights FROM sellers WHERE username = '$user'";
+			$result = mysqli_query($connection, $checkadmin);
+			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+			if ($row['adminrights'] == 1)
+				return true;
+			else return false;
+		}
+	}
 	
 ?>

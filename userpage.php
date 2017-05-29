@@ -35,14 +35,14 @@
 					}
 
 					// Check if the current user is admin
-
-					$user = $_SESSION["username"];
+					/*$user = $_SESSION["username"];
 					$checkadmin = "SELECT adminrights FROM sellers WHERE username = '$user'";
 
 					$result = mysqli_query($connection, $checkadmin);
 
 					$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-					if ($row['adminrights']== 1)
+					if ($row['adminrights']== 1)*/
+					if (adminPrivCheck($connection) == true)
 					{
 						$reportedentries = "SELECT id, title, leftdate, reportdescription FROM advertisements WHERE reported = 1";
 

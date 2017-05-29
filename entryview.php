@@ -58,6 +58,15 @@ JOIN categories ON advertisements.categoryid = categories.id
 				echo '<b>Description:</b><br><br>'; 
 				echo nl2br($entrydescription) . '<br>';
 			}
+			//Admin button!
+			
+			if (adminPrivCheck($connection) == true)
+			
+			{
+			
+				echo '<button>Hello admin!</button>';
+			
+			}
 			?>
 		</div>
 		<?php
