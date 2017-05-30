@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 deny from all
+=======
+ErrorDocument 404 /projectflea/404.php
+Options -Indexes 
+>>>>>>> 29fa57616ef62419046e9cab562ffbc14b00b44d

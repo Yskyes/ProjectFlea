@@ -63,15 +63,21 @@ JOIN categories ON advertisements.categoryid = categories.id
 			}
 			
 			//Admin button!
-			if (!empty($entrytitle))
+			if ((isset($_SESSION["username"])) && (!empty($entrytitle)))
 			{
 				if (adminPrivCheck($connection) == true)
 				{
-					echo '<br><button>Hello admin!</button>';
+					echo '<form action="adminstuff.php" method="POST">';
+					echo '<input type="hidden" name="entry_id" value="'.$entrynumber.'">';
+					echo '<input type="submit" value="Delete entry" name="submit_search">
+					</form>';
 				}
 				else
 				{
-					echo '<br><button>Report user</button>';
+					echo '<br><br><br><form action="report_entry.php" method="POST">';
+					echo '<input type="hidden" name="entry_id" value="'.$entrynumber.'">';
+					echo '<input type="text" name="reportdescription"><br>';
+					echo '<input type="submit" value="Report Entry" name="submit_search"></form>';
 				}
 			}
 			?>
