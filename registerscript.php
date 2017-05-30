@@ -116,8 +116,10 @@
 	}
 
 	// If all checks hold water, do the insert
+	$options = ['cost' => 12,];
+	$passwordhash = password_hash($password1, PASSWORD_DEFAULT, $options);
 
-	$registeruser = "INSERT INTO sellers (username, fullname, password, email, telephone) VALUES ('$username', '$fullname', '$password1', '$email', '$telephone')";
+	$registeruser = "INSERT INTO sellers (username, fullname, password, email, telephone) VALUES ('$username', '$fullname', '$passwordhash', '$email', '$telephone')";
 
 	if (mysqli_query($connection, $registeruser))
 	{
