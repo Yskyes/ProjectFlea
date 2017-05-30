@@ -22,8 +22,6 @@
 			<form action="searchscript.php" method="GET">
 				<table>
 					<tr><td>By Username:</td><td><input type="text" name="searchuser"></tr>
-				<!--	<tr><td>By Location:</td><td><input type="text" name="searchlocation"></tr> -->
-
 					<tr><td>By Location:</td><td><select name="searchlocation">
 						<option></option>
 						<?php
@@ -104,7 +102,6 @@
 						<option value=43>Spare/Replacement Parts</option>
 					</select></td></tr>
 					<tr><td>By Title or Description:</td><td><input type="text" name="searchtitledescr"></tr>
-					<!-- <tr><td>By Description: </td><td><input type="text" name="searchdescription"></tr> -->
 					<tr><td><input type="submit" value="Submit" name="submit_search"></tr>
 				</table>
 			</form>

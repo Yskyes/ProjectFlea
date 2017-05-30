@@ -9,7 +9,6 @@
 	    	<li><a href="http://localhost/projectflea/search.php"> Search </a></li>
     		<?php 
 				if(isset($_SESSION["username"]))
-				// && $_SESSION["logged"] == True)
 				{
 					echo "<li><a href='".$userpage."'><b>".$_SESSION["username"]."</b></a></li>
 					<li><a href='".$logout."'> Log out </a></li>";

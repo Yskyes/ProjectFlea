@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 	require_once 'connection.php';	
 ?>
 <!DOCTYPE html>
@@ -60,7 +60,7 @@
 				}  
 				
 				//check that password is long enough and that the two passwords match
-				var passw= RegExp(/^[a-zA-Z0-9_]{7,14}$/);
+				var passw= RegExp(/^[a-zA-Z0-9_]{7,32}$/);
 				var inputtxt1 = document.getElementById("password1").value;
 				var inputtxt2 = document.getElementById("password2").value;
 				
@@ -78,7 +78,7 @@
 				{ 
 				document.getElementById("password1").style.borderColor = "red";
 				document.getElementById("password2").style.borderColor = "red";  
-				alert("Password must be 7-14 characters long and only include letters, numbers or underscores.");
+				alert("Password must be 7-32 characters long and only include letters, numbers or underscores.");
 				return false;  
 				}
 				
@@ -94,12 +94,12 @@
 					return false;
 				}
 
-				var passw= RegExp(/^[a-zA-Z0-9_]{7,14}$/);
+				var passw= RegExp(/^[a-zA-Z0-9_]{7,32}$/);
 				var inputtxt1 = document.getElementById("loginpassword").value;
 
 				if(!(passw.test(inputtxt1))) 
 				{   
-					alert("Password must be 7 to 14 characters long or has illegal characters.");
+					alert("Password must be 7 to 32 characters long or has illegal characters.");
 					return false;
 				}  
 	
@@ -183,19 +183,17 @@
 		<h4 class=entrydivheader>Already registered? Login:</h4>
 
 		<form name="login" method="POST" action="loginscript.php"  autocomplete="on" onsubmit="return ValidateLogin()" >
-		<!--  -->
 			<table>
 				<tr><td>Username: </td><td><input type="text" name="loginusername" id="loginusername"></tr>
 				<tr><td>Password: </td><td><input type="password" name="loginpassword" id="loginpassword"></tr>
 				<?php
 					if (isset($_SESSION["logged"]) && $_SESSION["logged"] == False)
 					{
-						echo ("<tr><td> Login failed, check your credentials</tr></td>");
 						unset($_SESSION["logged"]);
 					}
 					if(isset($_SESSION["loginerror"]))
 					{
-						echo ("<tr><td>" .  $_SESSION["loginerror"]. " /tr></td>");
+						echo ("<tr><td>" .  $_SESSION["loginerror"]. " </tr></td>");
 					}
 				?>
 				<tr><td><input type="submit" value="login" name="submit_login"></tr>

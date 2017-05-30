@@ -126,17 +126,6 @@
 				}
 				else
 				{
-				/*while ($row = $result->fetch_assoc())
-				{
-					echo '<a href="entryview.php?entry=' . $row['id'] . '">' . 'Entry Link</a> <br>';
-					echo 'title: '.$row['title'].'<br>';
-					echo 'username: '.$row['username'].'<br>';
-					echo 'pricerequest: '.$row['pricerequest'].'<br>';
-					echo 'leftdate: '.$row['leftdate'].'<br>';
-					echo 'categoryid: '.$row['categoryid'].'<br>';
-					echo 'locationid: '.$row['locationid'].'<br>';
-					echo 'description: '.$row['description'].'<br><br>'; 
-				} */
 					$table="<table><tr>
 					<th>Title</th>
 					<th>Price Request</th>

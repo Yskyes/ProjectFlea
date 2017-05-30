@@ -33,11 +33,7 @@
     	Exit();
 	} 
 
-//	$options = ['cost' => 12,];
-//	$passwordverify = password_hash($password, PASSWORD_DEFAULT, $options);
-
 	$login = "SELECT * FROM sellers WHERE username='$username'";
-// AND password='$password'
 
 	// Query the database 
 	$result = mysqli_query($connection, $login);
@@ -50,15 +46,16 @@
 		if (password_verify($password, $passwordb))
 		{
 			$_SESSION["username"] = $username;
-	//		$_SESSION["logged"] = True;
+			$_SESSION["logged"] = True;
 			$_SESSION['LAST_ACTIVITY'] = time();
 			header("Location: ./front.php");
 		}
 		else 
 		{
-			$_SESSION["loginerror"] = "Hash failed. Please try again";
-	    	header("Location: ./login.php" );
-	    	Exit();
+		$_SESSION["logged"] = False;
+		$_SESSION["loginerror"] = "Wrong credentials. Please try again";
+    	header("Location: ./login.php" );
+    	Exit();
 		} 	
 	}
 	else 
