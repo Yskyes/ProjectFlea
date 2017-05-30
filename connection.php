@@ -5,7 +5,7 @@
 	session_start();
 	
 	// Create connection to XAMPP and its DB
-	$connection = mysqli_connect('localhost', 'root', '');
+	$connection = mysqli_connect('localhost', 'client', 'dIq2xIXvZ9ueawMe');
 	if(!$connection)
 	{
 		die("Database connection failed".mysqli_error($connection));

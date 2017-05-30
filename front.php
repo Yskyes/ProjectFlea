@@ -34,7 +34,7 @@
 		<p>In Flea, users can search for products other people are selling, or set up a new ad themselves. </p>
 		<p>Here are some of the ads that have just popped up on the site:</p>
 	<?php
-		$showten = "SELECT title, leftdate, id, pricerequest FROM advertisements ORDER BY leftdate ASC LIMIT 10";
+		$showten = "SELECT title, leftdate, id, pricerequest FROM advertisements ORDER BY leftdate DESC LIMIT 10";
 
 		// Query the database 
 		$result = mysqli_query($connection, $showten);
