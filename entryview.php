@@ -4,9 +4,10 @@
 	//Fetches the entry number to search for from the part of the url 'entry=?'
 	$entrynumber = $_GET['entry'];
 	//Prepares and binds parameters for a basic SELECT query to get all of the entry details
-	$stmt = $connection->prepare("SELECT advertisements.id, advertisements.pricerequest, advertisements.leftdate, locations.name AS location, categories.name AS category, advertisements.username, advertisements.title, advertisements.description FROM advertisements
+	$stmt = $connection->prepare("SELECT advertisements.id, advertisements.pricerequest, advertisements.leftdate, locations.name AS location, categories.name AS category, advertisements.username, advertisements.title, advertisements.description, sellers.telephone AS telephone, sellers.email AS email FROM advertisements
 JOIN locations ON advertisements.locationid = locations.id
 JOIN categories ON advertisements.categoryid = categories.id
+JOIN sellers ON advertisements.username = sellers.username
  WHERE advertisements.id = ?");
 
 	$stmt->bind_param("i", $entrynumber);
@@ -25,6 +26,8 @@ JOIN categories ON advertisements.categoryid = categories.id
 		$entrycategoryid = $row['category'];
 		$entrylocationid = $row['location'];
 		$entrydescription = $row['description'];
+		$entrytelephone = $row['telephone'];
+		$entryemail = $row['email'];
 	}
 	//Free results and close statement
 	$stmt->free_result();
@@ -56,6 +59,8 @@ JOIN categories ON advertisements.categoryid = categories.id
 			}
 			else {
 				echo 'By <b>'.$entryusername . '</b>. left on <b>'.$entryleftdate . '</b>.<br><br>';
+				echo 'Phone number: <b>'.$entrytelephone.' </b> <br>';
+				echo 'Email: <b>'.$entryemail.' </b> <br><br>';
 				echo 'In category <b>'.$entrycategoryid . '.</b><br>';
 				echo 'In <b>'.$entrylocationid . '.</b><br><br>';
 				echo '<b>Description:</b><br><br>'; 
