@@ -38,10 +38,10 @@
 		Exit();
 	}
 
-	$titlechar = htmlspecialchars($title, ENT_QUOTES);
-	$pricechar = htmlspecialchars($price, ENT_QUOTES);
-	$descriptionchar = 	htmlspecialchars($description, ENT_QUOTES);
-	str_replace("€","&euro;",$titlechar);
+	$titlechar = htmlentities($title, ENT_QUOTES);
+	$pricechar = htmlentities($price, ENT_QUOTES);
+	$descriptionchar = 	htmlentities($description, ENT_QUOTES);
+	//str_replace("€","&euro;",$titlechar);
 
 	$addentry = "INSERT INTO advertisements (pricerequest, leftdate, locationid, categoryid, username, 		title, description)
 				VALUES ('$pricechar', CURDATE(), '$location', '$category', '$username', '$titlechar', '$descriptionchar')";
